@@ -1,0 +1,11 @@
+
+  VITE v7.3.1  ready in 336 ms
+
+  ➜  Local:   http://localhost:3000/
+  ➜  Network: use --host to expose
+4:43:41 AM [vite] (client) page reload src/components/Map.js
+4:57:10 AM [vite] (client) hmr update /src/styles/main.css, /src/styles/main.css?direct
+5:05:03 AM [vite] (client) hmr update /src/styles/main.css, /src/styles/main.css?direct
+5:07:55 AM [vite] (client) page reload src/components/Map.js
+5:10:19 AM [vite] (client) page reload src/main.js
+5:21:38 AM [vite] (client) page reload src/components/DetailPanel.js

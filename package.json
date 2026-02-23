@@ -1,0 +1,26 @@
+{
+  "name": "app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rajeshceg3/FezMorocco.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/rajeshceg3/FezMorocco/issues"
+  },
+  "homepage": "https://github.com/rajeshceg3/FezMorocco#readme",
+  "dependencies": {
+    "gsap": "^3.14.2",
+    "leaflet": "^1.9.4",
+    "vite": "^7.3.1"
+  }
+}
