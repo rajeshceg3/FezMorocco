@@ -1,23 +1,19 @@
 # Progress Report
 
 ## Session Update
-- **Detail Panel Implementation:**
-  - Created `DetailPanel` component with slide-up animation.
-  - Styled with glassmorphism and smooth transitions (`src/styles/main.css`).
-  - Verified interaction with `verify_detail_panel.py`.
-- **Navigation & Filtering:**
-  - Developed `Navigation` component for bottom dock.
-  - Implemented category filtering logic in `Map.js` using `L.layerGroup`.
-  - Added "Sacred", "Craft", "Architecture", and "Explore" filters.
-  - Validated filtering functionality with `verify_navigation.py`.
-- **Map Refactoring:**
-  - Centralized marker management.
-  - Connected navigation events to map updates.
+- **Landing Screen Implementation:**
+  - Developed `Landing` component with fullscreen overlay and transition logic.
+  - Added "Begin the Walk" interaction triggering `flyToMedina` for a smooth entry animation.
+  - Verified functionality with `verify_landing.py`.
+- **Regression Fixes:**
+  - Identified and resolved a critical layout issue where markers were misplaced and unclickable due to missing `leaflet.css` import.
+  - Verified the entire user journey (Landing -> Map Zoom -> Marker Selection -> Detail Panel) with updated `verify_detail_panel.py`.
 
 ## Current State
-- **Map:** Leaflet map initializes with custom styling.
-- **Markers:** Curated landmarks (Al-Attarine, Chouara Tannery, etc.) are displayed.
+- **Entry Experience:** Implemented Landing Screen with animated transition to the map.
+- **Map:** Leaflet map initializes zoomed out, then flies to Medina upon entry.
+- **Markers:** Curated landmarks (Al-Attarine, Chouara Tannery, etc.) are displayed correctly.
 - **Interactivity:**
-  - Clicking a marker opens the Detail Panel.
-  - Clicking navigation buttons filters markers by category.
-- **Completion:** Approximately 40% of PRD scope (Core map, navigation, and detail view logic present; advanced modes and offline features pending).
+  - Clicking a marker opens the Detail Panel with smooth slide-up animation.
+  - Clicking navigation buttons filters markers by category (Sacred, Craft, Architecture).
+- **Completion:** Approximately 60% of PRD scope (Core map, navigation, detail view, and entry experience present; advanced modes, offline features, and audio pending).

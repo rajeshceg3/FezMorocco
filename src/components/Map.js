@@ -20,10 +20,11 @@ let markersLayer;
 const allMarkers = [];
 
 export function initMap() {
+  // Initialize with a zoomed-out view for the landing experience
   map = L.map('map', {
     center: [34.062, -4.975], // Centered on Fez Medina
-    zoom: 15,
-    zoomControl: false, // We'll add custom controls or gestures
+    zoom: 13, // Zoomed out initially
+    zoomControl: false,
     attributionControl: false
   });
 
@@ -88,4 +89,13 @@ export function filterMarkers(category) {
       markersLayer.addLayer(marker);
     }
   });
+}
+
+export function flyToMedina() {
+  if (map) {
+    map.flyTo([34.062, -4.975], 15, {
+      duration: 3, // 3 seconds animation
+      easeLinearity: 0.25
+    });
+  }
 }
