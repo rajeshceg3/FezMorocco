@@ -1,5 +1,6 @@
 import L from 'leaflet';
 import { landmarks } from '../data/landmarks.js';
+import { guidedRoute } from '../data/route.js';
 import { openDetailPanel } from './DetailPanel.js';
 
 // Fix for Leaflet default icon not showing in Vite
@@ -17,6 +18,7 @@ L.Icon.Default.mergeOptions({
 
 let map;
 let markersLayer;
+let routePolyline;
 const allMarkers = [];
 
 export function initMap() {
@@ -45,33 +47,33 @@ export function initMap() {
       category: landmark.category // Store category for filtering
     });
 
-    const popupContent = `
-      <div class="popup-content">
-        <h3>${landmark.title}</h3>
-        <p>${landmark.category}</p>
-        <button class="btn-explore" data-id="${landmark.id}">Explore</button>
-      </div>
-    `;
-
-    marker.bindPopup(popupContent);
+    marker.on('click', () => {
+      openDetailPanel(landmark);
+    });
 
     allMarkers.push(marker);
     markersLayer.addLayer(marker);
   });
 
-  // Event Delegation for "Explore" button in popups
-  map.on('popupopen', (e) => {
-    const popupNode = e.popup._contentNode;
-    const exploreBtn = popupNode.querySelector('.btn-explore');
-    if (exploreBtn) {
-      exploreBtn.addEventListener('click', () => {
-        const id = parseInt(exploreBtn.getAttribute('data-id'), 10);
-        const landmark = landmarks.find(l => l.id === id);
-        if (landmark) {
-          openDetailPanel(landmark);
-          map.closePopup(); // Close popup when opening detail panel
-        }
-      });
+  // Listen for Route Toggle
+  document.addEventListener('toggle-route', (e) => {
+    if (!map) return;
+    if (e.detail.active) {
+      if (!routePolyline) {
+        routePolyline = L.polyline(guidedRoute, {
+          color: '#B08D57', // Highlight color
+          weight: 4,
+          opacity: 0.8,
+          dashArray: '10, 10', // Dotted line
+          lineCap: 'round'
+        });
+      }
+      routePolyline.addTo(map);
+      map.fitBounds(routePolyline.getBounds(), { padding: [50, 50] });
+    } else {
+      if (routePolyline) {
+        routePolyline.remove();
+      }
     }
   });
 
