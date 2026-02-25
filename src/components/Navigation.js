@@ -65,40 +65,31 @@ export function initNavigation() {
 
     btn.addEventListener('click', () => {
       // Handle Dock Actions
-
-      // Explore: Toggle category filter
-      if (item.id === 'explore') {
-        const isHidden = categoryFilter.classList.toggle('hidden');
-        btn.classList.toggle('active', !isHidden);
-      }
-
-      // Route
-      if (item.id === 'route') {
-        isRouteActive = !isRouteActive;
-        btn.classList.toggle('active', isRouteActive);
-        document.dispatchEvent(new CustomEvent('toggle-route', { detail: { active: isRouteActive } }));
-      }
-
-      // Saved
-      if (item.id === 'saved') {
-        console.log('Saved clicked');
-        // Placeholder
-      }
-
-      // Audio
-      if (item.id === 'audio') {
-        isAudioActive = !isAudioActive;
-        btn.classList.toggle('active', isAudioActive);
-        console.log('Audio toggled', isAudioActive);
-        document.dispatchEvent(new CustomEvent('toggle-audio', { detail: { active: isAudioActive } }));
-      }
-
-      // Night
-      if (item.id === 'night') {
-        isNightMode = !isNightMode;
-        btn.classList.toggle('active', isNightMode);
-        document.body.classList.toggle('night-mode', isNightMode);
-        document.dispatchEvent(new CustomEvent('toggle-night', { detail: { active: isNightMode } }));
+      switch (item.id) {
+        case 'explore': {
+          const isHidden = categoryFilter.classList.toggle('hidden');
+          btn.classList.toggle('active', !isHidden);
+          break;
+        }
+        case 'route':
+          isRouteActive = !isRouteActive;
+          btn.classList.toggle('active', isRouteActive);
+          document.dispatchEvent(new CustomEvent('toggle-route', { detail: { active: isRouteActive } }));
+          break;
+        case 'saved':
+          // Placeholder
+          break;
+        case 'audio':
+          isAudioActive = !isAudioActive;
+          btn.classList.toggle('active', isAudioActive);
+          document.dispatchEvent(new CustomEvent('toggle-audio', { detail: { active: isAudioActive } }));
+          break;
+        case 'night':
+          isNightMode = !isNightMode;
+          btn.classList.toggle('active', isNightMode);
+          document.body.classList.toggle('night-mode', isNightMode);
+          document.dispatchEvent(new CustomEvent('toggle-night', { detail: { active: isNightMode } }));
+          break;
       }
     });
 
