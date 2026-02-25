@@ -1,0 +1,1 @@
+export const ROUTE_HIGHLIGHT_COLOR = '#B08D57';

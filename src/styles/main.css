@@ -7,6 +7,8 @@
   --font-sans: "Inter", sans-serif;
   --transition-speed: 0.4s;
   --ease-custom: cubic-bezier(0.25, 1, 0.5, 1);
+  --dock-height: 70px;
+  --dock-bottom-gap: 24px;
 }
 
 * {
@@ -149,7 +151,7 @@ body {
 /* Navigation Dock */
 .bottom-dock {
   position: fixed;
-  bottom: 24px;
+  bottom: var(--dock-bottom-gap);
   left: 50%;
   transform: translateX(-50%);
   background: rgba(255, 255, 255, 0.85); /* Glassy */
@@ -203,7 +205,7 @@ body {
 /* Category Filter */
 .category-filter {
   position: fixed;
-  bottom: 100px; /* Above dock */
+  bottom: calc(var(--dock-height) + var(--dock-bottom-gap) + 10px);
   left: 50%;
   transform: translateX(-50%);
   display: flex;
@@ -316,18 +318,23 @@ body {
 
 /* Night Mode */
 body.night-mode {
-  background-color: #0d1b2a;
-  color: #e0e1dd;
+  --night-bg: #0d1b2a;
+  --night-text: #e0e1dd;
+  --night-dock-bg: rgba(13, 27, 42, 0.85);
+  --night-border: rgba(255,255,255,0.1);
+
+  background-color: var(--night-bg);
+  color: var(--night-text);
 }
 
 body.night-mode .bottom-dock,
 body.night-mode .category-filter {
-  background: rgba(13, 27, 42, 0.85);
-  border-color: rgba(255,255,255,0.1);
+  background: var(--night-dock-bg);
+  border-color: var(--night-border);
 }
 
 body.night-mode .dock-btn {
-  color: #e0e1dd;
+  color: var(--night-text);
 }
 
 body.night-mode .dock-btn.active {
@@ -335,12 +342,12 @@ body.night-mode .dock-btn.active {
 }
 
 body.night-mode .cat-btn {
-  color: #e0e1dd;
+  color: var(--night-text);
 }
 
 body.night-mode .cat-btn.active {
   background: var(--color-highlight);
-  color: #0d1b2a;
+  color: var(--night-bg);
 }
 
 /* Map Night Mode Filter */

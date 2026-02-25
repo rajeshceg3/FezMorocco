@@ -2,6 +2,7 @@ import L from 'leaflet';
 import { landmarks } from '../data/landmarks.js';
 import { guidedRoute } from '../data/route.js';
 import { openDetailPanel } from './DetailPanel.js';
+import { ROUTE_HIGHLIGHT_COLOR } from '../constants.js';
 
 // Fix for Leaflet default icon not showing in Vite
 import markerIcon from 'leaflet/dist/images/marker-icon.png';
@@ -61,7 +62,7 @@ export function initMap() {
     if (e.detail.active) {
       if (!routePolyline) {
         routePolyline = L.polyline(guidedRoute, {
-          color: '#B08D57', // Highlight color
+          color: ROUTE_HIGHLIGHT_COLOR,
           weight: 4,
           opacity: 0.8,
           dashArray: '10, 10', // Dotted line
