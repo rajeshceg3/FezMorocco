@@ -1,26 +1,21 @@
 # Progress Report
 
 ## Session Update
-- **Navigation & Dock:**
-  - Refactored `Navigation` component to implement the "Bottom Dock" with Explore, Route, Saved, Audio, and Night modes.
-  - Implemented floating "Category Filter" pills (All, Sacred, Craft, Architecture, Stay).
-- **Signature Modes:**
-  - **Night Mode:** Implemented a comprehensive dark theme with CSS filters for the map and distinct color variables for UI elements.
-  - **Guided Path:** Added `toggle-route` functionality to render a dashed polyline (simulating a walking path) on the map using data from `src/data/route.js`.
-- **Styling & UX:**
-  - Applied "Glassmorphism" design principles to UI components (blur effects, translucent backgrounds).
-  - Ensured smooth transitions for mode switches.
-- **PWA & Performance:**
-  - Created and registered `sw.js` (Service Worker) to handle asset caching, moving towards the "Offline" requirement.
+- **Audio Experience:**
+  - Implemented `AudioController` for ambient souk sounds, toggled via the dock.
+  - Added specific audio guides to landmarks in `DetailPanel.js`.
+- **Interactive Features:**
+  - **Detail Lens:** Implemented a zoomable image overlay for inspecting architectural details (e.g., Al-Attarine Madrasa tilework).
+- **PWA & Offline:**
+  - Enhanced `sw.js` to cache OpenStreetMap tiles using a "Cache First" strategy, ensuring map availability offline.
 - **Verification:**
-  - Created `verify_dock_and_modes.py` to test the new UI elements and mode toggles.
-  - Verified the visual state of the Bottom Dock, Night Mode, and Route rendering.
+  - Verified audio playback, detail lens interaction, and service worker caching logic using Playwright.
 
 ## Current State
 - **Entry Experience:** Landing Screen -> Map transition is smooth.
 - **Map & Markers:** Leaflet map works with curated markers and custom popup interactions.
 - **Navigation:** Fully functional Bottom Dock and Category Filters.
-- **Modes:** Night Mode and Route visualization are operational.
-- **PWA:** Service Worker is registered.
-- **Completion:** Approximately **90%** of PRD scope.
-  - *Remaining:* Fine-tuning specific audio interactions, advanced offline tile caching strategies, and specific "Detail Lens" animations.
+- **Modes:** Night Mode, Route visualization, and Audio Ambience are operational.
+- **PWA:** Service Worker registered with tile caching.
+- **Completion:** Approximately **98%** of PRD scope.
+  - *Remaining:* Final polish and rigorous offline testing.

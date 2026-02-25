@@ -14,8 +14,9 @@ export const landmarks = [
     info: {
       hours: "9:00 AM - 5:00 PM",
       bestTime: "Early morning for soft light",
-      audioSnippet: "chanting_students.mp3"
+      audioSnippet: "https://upload.wikimedia.org/wikipedia/commons/e/e4/Muezzin_call_to_prayer_from_Blue_Mosque_Istanbul.ogg"
     },
+    detailLens: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Medersa_Attarine_Fes_Morocco.jpg/1280px-Medersa_Attarine_Fes_Morocco.jpg",
     image: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Medersa_Attarine_Fes_Morocco.jpg/640px-Medersa_Attarine_Fes_Morocco.jpg"
   },
   {
@@ -33,7 +34,7 @@ export const landmarks = [
     info: {
       hours: "Open 24 Hours",
       bestTime: "Sunset for the glow",
-      audioSnippet: "bustling_gate.mp3"
+      audioSnippet: "https://upload.wikimedia.org/wikipedia/commons/7/7f/Souq_in_Marrakesh.ogg"
     },
     image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Bab_Bou_Jeloud.jpg/640px-Bab_Bou_Jeloud.jpg"
   },
@@ -52,7 +53,7 @@ export const landmarks = [
     info: {
       hours: "8:00 AM - 7:00 PM",
       bestTime: "Morning when dyes are fresh",
-      audioSnippet: "tannery_workers.mp3"
+      audioSnippet: "https://upload.wikimedia.org/wikipedia/commons/7/7f/Souq_in_Marrakesh.ogg"
     },
     image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Fes_Tanneries.jpg/640px-Fes_Tanneries.jpg"
   },
@@ -71,7 +72,7 @@ export const landmarks = [
     info: {
       hours: "Muslims only (mosque)",
       bestTime: "Call to prayer times",
-      audioSnippet: "azan_call.mp3"
+      audioSnippet: "https://upload.wikimedia.org/wikipedia/commons/e/e4/Muezzin_call_to_prayer_from_Blue_Mosque_Istanbul.ogg"
     },
     image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Al_Qarawiyyin_Mosque.jpg/640px-Al_Qarawiyyin_Mosque.jpg"
   },
@@ -90,7 +91,7 @@ export const landmarks = [
     info: {
       hours: "10:00 AM - 5:00 PM",
       bestTime: "Mid-day for cool interior",
-      audioSnippet: "wood_chiseling.mp3"
+      audioSnippet: "https://upload.wikimedia.org/wikipedia/commons/7/7f/Souq_in_Marrakesh.ogg"
     },
     image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Fondouk_Nejjarine.jpg/640px-Fondouk_Nejjarine.jpg"
   }
