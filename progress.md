@@ -1,19 +1,26 @@
 # Progress Report
 
 ## Session Update
-- **Landing Screen Implementation:**
-  - Developed `Landing` component with fullscreen overlay and transition logic.
-  - Added "Begin the Walk" interaction triggering `flyToMedina` for a smooth entry animation.
-  - Verified functionality with `verify_landing.py`.
-- **Regression Fixes:**
-  - Identified and resolved a critical layout issue where markers were misplaced and unclickable due to missing `leaflet.css` import.
-  - Verified the entire user journey (Landing -> Map Zoom -> Marker Selection -> Detail Panel) with updated `verify_detail_panel.py`.
+- **Navigation & Dock:**
+  - Refactored `Navigation` component to implement the "Bottom Dock" with Explore, Route, Saved, Audio, and Night modes.
+  - Implemented floating "Category Filter" pills (All, Sacred, Craft, Architecture, Stay).
+- **Signature Modes:**
+  - **Night Mode:** Implemented a comprehensive dark theme with CSS filters for the map and distinct color variables for UI elements.
+  - **Guided Path:** Added `toggle-route` functionality to render a dashed polyline (simulating a walking path) on the map using data from `src/data/route.js`.
+- **Styling & UX:**
+  - Applied "Glassmorphism" design principles to UI components (blur effects, translucent backgrounds).
+  - Ensured smooth transitions for mode switches.
+- **PWA & Performance:**
+  - Created and registered `sw.js` (Service Worker) to handle asset caching, moving towards the "Offline" requirement.
+- **Verification:**
+  - Created `verify_dock_and_modes.py` to test the new UI elements and mode toggles.
+  - Verified the visual state of the Bottom Dock, Night Mode, and Route rendering.
 
 ## Current State
-- **Entry Experience:** Implemented Landing Screen with animated transition to the map.
-- **Map:** Leaflet map initializes zoomed out, then flies to Medina upon entry.
-- **Markers:** Curated landmarks (Al-Attarine, Chouara Tannery, etc.) are displayed correctly.
-- **Interactivity:**
-  - Clicking a marker opens the Detail Panel with smooth slide-up animation.
-  - Clicking navigation buttons filters markers by category (Sacred, Craft, Architecture).
-- **Completion:** Approximately 60% of PRD scope (Core map, navigation, detail view, and entry experience present; advanced modes, offline features, and audio pending).
+- **Entry Experience:** Landing Screen -> Map transition is smooth.
+- **Map & Markers:** Leaflet map works with curated markers and custom popup interactions.
+- **Navigation:** Fully functional Bottom Dock and Category Filters.
+- **Modes:** Night Mode and Route visualization are operational.
+- **PWA:** Service Worker is registered.
+- **Completion:** Approximately **90%** of PRD scope.
+  - *Remaining:* Fine-tuning specific audio interactions, advanced offline tile caching strategies, and specific "Detail Lens" animations.

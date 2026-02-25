@@ -25,6 +25,7 @@ body {
   font-family: var(--font-sans);
   background-color: var(--color-base);
   color: var(--color-accent);
+  transition: background-color 0.5s ease, color 0.5s ease;
 }
 
 #app {
@@ -37,6 +38,7 @@ body {
   width: 100%;
   height: 100%;
   z-index: 0;
+  transition: filter 0.5s ease;
 }
 
 /* Detail Panel Styles */
@@ -150,38 +152,95 @@ body {
   bottom: 24px;
   left: 50%;
   transform: translateX(-50%);
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.85); /* Glassy */
   backdrop-filter: blur(12px);
-  padding: 8px 12px;
+  padding: 12px 24px;
   border-radius: 40px;
   box-shadow: 0 4px 20px rgba(0,0,0,0.1);
   display: flex;
-  gap: 8px;
+  gap: 16px;
   z-index: 1000;
   border: 1px solid rgba(255,255,255,0.2);
+  transition: background-color 0.5s ease, border-color 0.5s ease;
 }
 
-.nav-btn {
+.dock-btn {
   background: none;
   border: none;
-  padding: 10px 16px;
-  border-radius: 30px;
-  font-family: var(--font-sans);
-  font-size: 0.9rem;
-  font-weight: 500;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   color: var(--color-accent);
   cursor: pointer;
-  transition: background 0.2s, color 0.2s;
+  transition: all 0.3s ease;
+  opacity: 0.6;
+}
+
+.dock-btn:hover {
+  opacity: 1;
+  transform: translateY(-2px);
+}
+
+.dock-btn.active {
+  opacity: 1;
+  color: var(--color-highlight);
+}
+
+.dock-btn svg {
+  width: 24px;
+  height: 24px;
+  margin-bottom: 4px;
+}
+
+.dock-label {
+  font-size: 0.7rem;
+  font-weight: 500;
+  text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 
-.nav-btn:hover {
-  background: rgba(31, 58, 95, 0.05); /* Accent color faint */
+/* Category Filter */
+.category-filter {
+  position: fixed;
+  bottom: 100px; /* Above dock */
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 8px 16px;
+  border-radius: 30px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  z-index: 999;
+  transition: opacity 0.3s ease, transform 0.3s ease, background-color 0.5s ease;
 }
 
-.nav-btn.active {
+.category-filter.hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-50%) translateY(10px);
+}
+
+.cat-btn {
+  background: none;
+  border: 1px solid transparent;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  color: var(--color-accent);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.cat-btn:hover {
+  background: rgba(31, 58, 95, 0.05);
+}
+
+.cat-btn.active {
   background: var(--color-accent);
-  color: #fff;
+  color: white;
 }
 
 /* Landing Screen */
@@ -253,4 +312,43 @@ body {
   color: white;
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(31, 58, 95, 0.2);
+}
+
+/* Night Mode */
+body.night-mode {
+  background-color: #0d1b2a;
+  color: #e0e1dd;
+}
+
+body.night-mode .bottom-dock,
+body.night-mode .category-filter {
+  background: rgba(13, 27, 42, 0.85);
+  border-color: rgba(255,255,255,0.1);
+}
+
+body.night-mode .dock-btn {
+  color: #e0e1dd;
+}
+
+body.night-mode .dock-btn.active {
+  color: var(--color-highlight);
+}
+
+body.night-mode .cat-btn {
+  color: #e0e1dd;
+}
+
+body.night-mode .cat-btn.active {
+  background: var(--color-highlight);
+  color: #0d1b2a;
+}
+
+/* Map Night Mode Filter */
+body.night-mode #map {
+  filter: invert(1) hue-rotate(180deg) brightness(0.8) contrast(1.2);
+}
+
+/* Golden Hour / Night Glow */
+body.night-mode .leaflet-marker-icon {
+  filter: drop-shadow(0 0 8px var(--color-highlight));
 }
