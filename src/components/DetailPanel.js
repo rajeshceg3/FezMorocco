@@ -109,8 +109,77 @@ export function openDetailPanel(data) {
   visitorInfo.appendChild(hoursP);
   visitorInfo.appendChild(bestTimeP);
 
+  // Audio Guide
+  if (data.info.audioSnippet) {
+    const audioContainer = document.createElement('div');
+    audioContainer.style.marginTop = '16px';
+
+    const label = document.createElement('p');
+    label.innerHTML = '<strong>Audio Guide:</strong>';
+    label.style.marginBottom = '8px';
+
+    const audio = document.createElement('audio');
+    audio.controls = true;
+    audio.src = data.info.audioSnippet;
+    audio.style.width = '100%';
+
+    audioContainer.appendChild(label);
+    audioContainer.appendChild(audio);
+    visitorInfo.appendChild(audioContainer);
+  }
+
+  // Detail Lens
+  if (data.detailLens) {
+    const lensBtn = document.createElement('button');
+    lensBtn.className = 'btn-enter'; // Reusing existing button style
+    lensBtn.style.marginTop = '16px';
+    lensBtn.style.width = '100%';
+    lensBtn.textContent = 'Examine Details';
+    lensBtn.onclick = () => openLens(data.detailLens);
+    visitorInfo.appendChild(lensBtn);
+  }
+
   // Show panel
   panel.classList.add('visible');
+}
+
+function openLens(imageUrl) {
+  const overlay = document.createElement('div');
+  overlay.className = 'lens-overlay';
+  overlay.style.position = 'fixed';
+  overlay.style.top = '0';
+  overlay.style.left = '0';
+  overlay.style.width = '100%';
+  overlay.style.height = '100%';
+  overlay.style.backgroundColor = 'rgba(0,0,0,0.9)';
+  overlay.style.zIndex = '3000';
+  overlay.style.display = 'flex';
+  overlay.style.justifyContent = 'center';
+  overlay.style.alignItems = 'center';
+  overlay.style.cursor = 'zoom-out';
+
+  const img = document.createElement('img');
+  img.src = imageUrl;
+  img.style.maxWidth = '100%';
+  img.style.maxHeight = '100%';
+  img.style.transition = 'transform 0.3s ease';
+  img.style.cursor = 'zoom-in';
+
+  // Simple zoom effect on click
+  let zoomed = false;
+  img.onclick = (e) => {
+    e.stopPropagation();
+    zoomed = !zoomed;
+    img.style.transform = zoomed ? 'scale(2)' : 'scale(1)';
+    img.style.cursor = zoomed ? 'zoom-out' : 'zoom-in';
+  };
+
+  overlay.onclick = () => {
+    document.body.removeChild(overlay);
+  };
+
+  overlay.appendChild(img);
+  document.body.appendChild(overlay);
 }
 
 export function closeDetailPanel() {
