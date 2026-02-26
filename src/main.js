@@ -1,4 +1,3 @@
-import 'leaflet/dist/leaflet.css';
 import './styles/main.css';
 import { initMap, filterMarkers } from './components/Map.js';
 import { initDetailPanel } from './components/DetailPanel.js';

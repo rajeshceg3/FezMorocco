@@ -66,7 +66,8 @@ export function initMap() {
           weight: 4,
           opacity: 0.8,
           dashArray: '10, 10', // Dotted line
-          lineCap: 'round'
+          lineCap: 'round',
+          className: 'animated-route'
         });
       }
       routePolyline.addTo(map);

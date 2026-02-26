@@ -94,5 +94,63 @@ export const landmarks = [
       audioSnippet: "https://upload.wikimedia.org/wikipedia/commons/7/7f/Souq_in_Marrakesh.ogg"
     },
     image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Fondouk_Nejjarine.jpg/640px-Fondouk_Nejjarine.jpg"
+  },
+  {
+    id: 6,
+    title: "Bou Inania Madrasa",
+    lat: 34.0619,
+    lng: -4.9828,
+    category: "Sacred",
+    intro: "A Marinid masterpiece where the spiritual and the scholarly intertwine.",
+    facts: [
+      "Built 1350-55 by Sultan Abu Inan Faris",
+      "Functions as both madrasa and congregational mosque",
+      "Features a famous hydraulic clock"
+    ],
+    info: {
+      hours: "9:00 AM - 5:00 PM",
+      bestTime: "Morning",
+      audioSnippet: "https://upload.wikimedia.org/wikipedia/commons/e/e4/Muezzin_call_to_prayer_from_Blue_Mosque_Istanbul.ogg"
+    },
+    detailLens: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Bou_Inania_Madrasa_courtyard.jpg/1280px-Bou_Inania_Madrasa_courtyard.jpg",
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Bou_Inania_Madrasa_courtyard.jpg/640px-Bou_Inania_Madrasa_courtyard.jpg"
+  },
+  {
+    id: 7,
+    title: "Cafe Clock",
+    lat: 34.0629,
+    lng: -4.9850,
+    category: "Taste",
+    intro: "A cultural crossroads serving camel burgers and storytelling in a restored townhouse.",
+    facts: [
+      "Famous for camel burgers",
+      "Hosts traditional storytelling",
+      "Restored 250-year-old courtyard house"
+    ],
+    info: {
+      hours: "9:00 AM - 11:00 PM",
+      bestTime: "Lunch or evening jam session",
+      audioSnippet: "https://upload.wikimedia.org/wikipedia/commons/7/7f/Souq_in_Marrakesh.ogg"
+    },
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Bab_Bou_Jeloud.jpg/640px-Bab_Bou_Jeloud.jpg"
+  },
+  {
+    id: 8,
+    title: "Riad Fes",
+    lat: 34.0615,
+    lng: -4.9799,
+    category: "Stay",
+    intro: "Andalusian grandeur meets modern luxury in this Relais & Châteaux sanctuary.",
+    facts: [
+      "Panoramic rooftop views of the Medina",
+      "Four harmonized patios",
+      "Traditional zellige and cedar craftsmanship"
+    ],
+    info: {
+      hours: "Open 24 Hours",
+      bestTime: "Sunset on the roof",
+      audioSnippet: "https://upload.wikimedia.org/wikipedia/commons/7/7f/Souq_in_Marrakesh.ogg"
+    },
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Fondouk_Nejjarine.jpg/640px-Fondouk_Nejjarine.jpg"
   }
 ];

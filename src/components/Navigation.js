@@ -12,7 +12,9 @@ export function initNavigation() {
     { id: 'all', label: 'All' },
     { id: 'Sacred', label: 'Sacred' },
     { id: 'Craft', label: 'Craft' },
-    { id: 'Architecture', label: 'Architecture' }
+    { id: 'Architecture', label: 'Architecture' },
+    { id: 'Taste', label: 'Taste' },
+    { id: 'Stay', label: 'Stay' }
   ];
 
   categories.forEach(cat => {
