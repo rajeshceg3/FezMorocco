@@ -20,7 +20,10 @@
   "homepage": "https://github.com/rajeshceg3/FezMorocco#readme",
   "dependencies": {
     "gsap": "^3.14.2",
-    "leaflet": "^1.9.4",
+    "leaflet": "^1.9.4"
+  },
+  "devDependencies": {
+    "puppeteer": "^24.39.1",
     "vite": "^7.3.1"
   }
 }

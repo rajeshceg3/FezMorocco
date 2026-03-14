@@ -57,6 +57,7 @@ export function initNavigation() {
   let isNightMode = false;
   let isRouteActive = false;
   let isAudioActive = false;
+  let isSavedActive = false;
 
   dockItems.forEach(item => {
     const btn = document.createElement('button');
@@ -79,7 +80,9 @@ export function initNavigation() {
           document.dispatchEvent(new CustomEvent('toggle-route', { detail: { active: isRouteActive } }));
           break;
         case 'saved':
-          // Placeholder
+          isSavedActive = !isSavedActive;
+          btn.classList.toggle('active', isSavedActive);
+          document.dispatchEvent(new CustomEvent('filter-saved', { detail: { active: isSavedActive } }));
           break;
         case 'audio':
           isAudioActive = !isAudioActive;
