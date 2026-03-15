@@ -42,10 +42,21 @@ export function initMap() {
 
   // Add Markers
   landmarks.forEach(landmark => {
+    // Determine category-specific class for the marker
+    const categoryClass = landmark.category ? `marker-${landmark.category.toLowerCase()}` : '';
+
+    const customIcon = L.divIcon({
+      className: `custom-marker ${categoryClass}`,
+      iconSize: [16, 16],
+      iconAnchor: [8, 8] // Center the dot on the coordinates
+    });
+
     const marker = L.marker([landmark.lat, landmark.lng], {
+      icon: customIcon,
       title: landmark.title,
       alt: landmark.title,
-      category: landmark.category // Store category for filtering
+      category: landmark.category, // Store category for filtering
+      id: landmark.id // Store id for "Saved" functionality
     });
 
     marker.on('click', () => {
@@ -54,6 +65,26 @@ export function initMap() {
 
     allMarkers.push(marker);
     markersLayer.addLayer(marker);
+  });
+
+  // Listen for Saved Filter
+  let isSavedFilterActive = false;
+  let currentCategoryFilter = 'all';
+
+  document.addEventListener('filter-landmarks', (e) => {
+    currentCategoryFilter = e.detail.category;
+    applyFilters(isSavedFilterActive, currentCategoryFilter);
+  });
+
+  document.addEventListener('filter-saved', (e) => {
+    isSavedFilterActive = e.detail.active;
+    applyFilters(isSavedFilterActive, currentCategoryFilter);
+  });
+
+  document.addEventListener('saved-places-updated', () => {
+    if (isSavedFilterActive) {
+      applyFilters(isSavedFilterActive, currentCategoryFilter);
+    }
   });
 
   // Listen for Route Toggle
@@ -84,12 +115,32 @@ export function initMap() {
 }
 
 export function filterMarkers(category) {
+  // This is now handled by the event listener in initMap to coordinate with saved filter.
+  // We dispatch the event instead.
+  document.dispatchEvent(new CustomEvent('filter-landmarks', { detail: { category } }));
+}
+
+function applyFilters(savedActive, category) {
   if (!markersLayer) return;
 
   markersLayer.clearLayers();
 
+  const savedLandmarks = JSON.parse(localStorage.getItem('savedLandmarks') || '[]');
+
   allMarkers.forEach(marker => {
-    if (!category || category === 'all' || marker.options.category === category) {
+    let show = true;
+
+    // Check category filter
+    if (category && category !== 'all' && marker.options.category !== category) {
+      show = false;
+    }
+
+    // Check saved filter
+    if (savedActive && !savedLandmarks.includes(marker.options.id)) {
+      show = false;
+    }
+
+    if (show) {
       markersLayer.addLayer(marker);
     }
   });

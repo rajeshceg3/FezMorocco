@@ -1,3 +1,5 @@
+let currentAudio = null;
+
 export function initDetailPanel() {
   const panel = document.createElement('div');
   panel.className = 'detail-panel';
@@ -7,7 +9,14 @@ export function initDetailPanel() {
   panel.innerHTML = `
     <div class="panel-header">
       <h2 class="panel-title">Landmark Name</h2>
-      <button class="close-btn" aria-label="Close details">×</button>
+      <div class="header-actions">
+        <button class="save-btn" aria-label="Save landmark">
+          <svg class="bookmark-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+          </svg>
+        </button>
+        <button class="close-btn" aria-label="Close details">×</button>
+      </div>
     </div>
     <div class="panel-content">
       <div class="hero-image-container">
@@ -16,6 +25,10 @@ export function initDetailPanel() {
       <p class="intro-text">
         A poetic description of the landmark goes here.
       </p>
+
+      <blockquote class="local-tip" style="display: none;">
+        <!-- Local tip injected here -->
+      </blockquote>
 
       <div class="info-section">
         <h3>Key Facts</h3>
@@ -48,9 +61,49 @@ export function openDetailPanel(data) {
   const panel = document.getElementById('detail-panel');
   if (!panel) return;
 
+  // Set current landmark ID to the panel for saving
+  panel.dataset.currentId = data.id;
+
+  // Update Save Button State
+  const saveBtn = panel.querySelector('.save-btn');
+
+  const updateSaveButtonVisuals = () => {
+    const savedLandmarks = JSON.parse(localStorage.getItem('savedLandmarks') || '[]');
+    if (savedLandmarks.includes(data.id)) {
+      saveBtn.classList.add('saved');
+      saveBtn.querySelector('.bookmark-icon').setAttribute('fill', 'currentColor');
+    } else {
+      saveBtn.classList.remove('saved');
+      saveBtn.querySelector('.bookmark-icon').setAttribute('fill', 'none');
+    }
+  };
+
+  updateSaveButtonVisuals();
+
+  saveBtn.onclick = () => {
+    let savedLandmarks = JSON.parse(localStorage.getItem('savedLandmarks') || '[]');
+    if (savedLandmarks.includes(data.id)) {
+      savedLandmarks = savedLandmarks.filter(id => id !== data.id);
+    } else {
+      savedLandmarks.push(data.id);
+    }
+    localStorage.setItem('savedLandmarks', JSON.stringify(savedLandmarks));
+    updateSaveButtonVisuals();
+    document.dispatchEvent(new CustomEvent('saved-places-updated'));
+  };
+
   // Populate data
   panel.querySelector('.panel-title').textContent = data.title;
   panel.querySelector('.intro-text').textContent = data.intro;
+
+  // Local Tip
+  const localTipEl = panel.querySelector('.local-tip');
+  if (data.localTip) {
+    localTipEl.textContent = `“${data.localTip}”`;
+    localTipEl.style.display = 'block';
+  } else {
+    localTipEl.style.display = 'none';
+  }
 
   // Image (using placeholder for now or data image)
   const imgContainer = panel.querySelector('.hero-image-container');
@@ -114,17 +167,43 @@ export function openDetailPanel(data) {
     const audioContainer = document.createElement('div');
     audioContainer.style.marginTop = '16px';
 
-    const label = document.createElement('p');
-    label.innerHTML = '<strong>Audio Guide:</strong>';
-    label.style.marginBottom = '8px';
+    const audioBtn = document.createElement('button');
+    audioBtn.className = 'custom-audio-btn';
+    audioBtn.innerHTML = `<span class="icon">▶</span> <span class="text">Play Audio Guide</span>`;
 
-    const audio = document.createElement('audio');
-    audio.controls = true;
-    audio.src = data.info.audioSnippet;
-    audio.style.width = '100%';
+    // Create new audio object
+    const audioObj = new Audio(data.info.audioSnippet);
 
-    audioContainer.appendChild(label);
-    audioContainer.appendChild(audio);
+    audioBtn.onclick = () => {
+      if (currentAudio && currentAudio !== audioObj) {
+        currentAudio.pause();
+        currentAudio.currentTime = 0;
+        // Reset previous button if needed (handled by re-render, but good practice)
+        const activeBtn = panel.querySelector('.custom-audio-btn.playing');
+        if (activeBtn) {
+           activeBtn.classList.remove('playing');
+           activeBtn.innerHTML = `<span class="icon">▶</span> <span class="text">Play Audio Guide</span>`;
+        }
+      }
+
+      if (audioObj.paused) {
+        audioObj.play();
+        audioBtn.classList.add('playing');
+        audioBtn.innerHTML = `<span class="icon">⏸</span> <span class="text">Pause Audio Guide</span>`;
+        currentAudio = audioObj;
+      } else {
+        audioObj.pause();
+        audioBtn.classList.remove('playing');
+        audioBtn.innerHTML = `<span class="icon">▶</span> <span class="text">Play Audio Guide</span>`;
+      }
+    };
+
+    audioObj.onended = () => {
+       audioBtn.classList.remove('playing');
+       audioBtn.innerHTML = `<span class="icon">▶</span> <span class="text">Play Audio Guide</span>`;
+    };
+
+    audioContainer.appendChild(audioBtn);
     visitorInfo.appendChild(audioContainer);
   }
 
@@ -186,5 +265,10 @@ export function closeDetailPanel() {
   const panel = document.getElementById('detail-panel');
   if (panel) {
     panel.classList.remove('visible');
+    if (currentAudio) {
+      currentAudio.pause();
+      currentAudio.currentTime = 0;
+      currentAudio = null;
+    }
   }
 }

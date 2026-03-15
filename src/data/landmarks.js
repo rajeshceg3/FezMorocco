@@ -6,10 +6,11 @@ export const landmarks = [
     lng: -4.9734,
     category: "Sacred",
     intro: "A masterpiece of Marinid architecture, where zellige tilework whispers the divine geometry of the cosmos.",
+    localTip: "Look up. The cedar canopy seems to float above the courtyard, a testament to masters who understood light as a building material.",
     facts: [
-      "Built in 1323 by Sultan Uthman II",
-      "Functioned as a school for religious studies",
-      "Famous for its intricate cedar wood carving"
+      "Completed in 1325 by Sultan Uthman II Abu Said",
+      "Functioned as a school for Islamic and scientific studies",
+      "Renowned for its flawless cedar wood carving and stucco work"
     ],
     info: {
       hours: "9:00 AM - 5:00 PM",
@@ -25,11 +26,12 @@ export const landmarks = [
     lat: 34.0608,
     lng: -4.9863,
     category: "Architecture",
-    intro: "The grand entrance to the Medina, shimmering with blue on the outside for Fes, and green on the inside for Islam.",
+    intro: "The grand entrance to the Medina, shimmering with Fassi blue on the outside and Islamic green on the inside.",
+    localTip: "Stand precisely at the center arch; it neatly frames the minaret of the Bou Inania Madrasa down the street.",
     facts: [
-      "Reconstructed in 1913",
-      "Marks the transition from modern to medieval city",
-      "Illuminated at night"
+      "Constructed in 1913 during the French protectorate",
+      "Marks the transition from the modern Ville Nouvelle to the medieval city",
+      "Its true beauty reveals itself when illuminated at dusk"
     ],
     info: {
       hours: "Open 24 Hours",
@@ -45,14 +47,15 @@ export const landmarks = [
     lng: -4.9708,
     category: "Craft",
     intro: "A vibrant patchwork of stone vessels filled with natural dyes, unchanged since the 11th century.",
+    localTip: "Accept the sprig of mint offered at the terrace entrances—you will need it to cut through the pungent scent of history.",
     facts: [
-      "Largest tannery in the city",
-      "Uses saffron, poppy, and indigo dyes",
-      "Best viewed from surrounding terraces"
+      "The largest and oldest tannery in the city",
+      "Uses natural dyes like poppy (red), indigo (blue), and henna (orange)",
+      "Best viewed from the surrounding leather shop terraces"
     ],
     info: {
       hours: "8:00 AM - 7:00 PM",
-      bestTime: "Morning when dyes are fresh",
+      bestTime: "Morning when dyes are fresh and active",
       audioSnippet: "https://upload.wikimedia.org/wikipedia/commons/7/7f/Souq_in_Marrakesh.ogg"
     },
     image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Fes_Tanneries.jpg/640px-Fes_Tanneries.jpg"
@@ -63,15 +66,16 @@ export const landmarks = [
     lat: 34.0642,
     lng: -4.9731,
     category: "Sacred",
-    intro: "The oldest existing, continually operating educational institution in the world.",
+    intro: "The oldest continuously operating educational institution in the world, the quiet heartbeat of Fes.",
+    localTip: "Though non-Muslims cannot enter the prayer hall, linger by the brass doors to hear the acoustic resonance of the courtyard.",
     facts: [
       "Founded in 859 by Fatima al-Fihri",
-      "Library houses over 4000 manuscripts",
-      "UNESCO World Heritage Site"
+      "Its historic library houses over 4,000 ancient manuscripts",
+      "Recognized by UNESCO and Guinness World Records"
     ],
     info: {
-      hours: "Muslims only (mosque)",
-      bestTime: "Call to prayer times",
+      hours: "Muslims only (mosque access)",
+      bestTime: "During the call to prayer",
       audioSnippet: "https://upload.wikimedia.org/wikipedia/commons/e/e4/Muezzin_call_to_prayer_from_Blue_Mosque_Istanbul.ogg"
     },
     image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Al_Qarawiyyin_Mosque.jpg/640px-Al_Qarawiyyin_Mosque.jpg"
@@ -83,14 +87,15 @@ export const landmarks = [
     lng: -4.9742,
     category: "Craft",
     intro: "A restored funduq (inn) showcasing the exquisite wood carving traditions of Fes.",
+    localTip: "Take tea on the rooftop café. The view offers a rare, serene panorama of the sprawling Medina roofscape.",
     facts: [
-      "Formerly a caravanserai for merchants",
-      "Features a stunning central courtyard",
-      "Rooftop offers panoramic views"
+      "Formerly a caravanserai for traveling merchants in the 18th century",
+      "Features a stunningly symmetrical central courtyard",
+      "Houses intricate antique instruments, prayer beads, and palanquins"
     ],
     info: {
       hours: "10:00 AM - 5:00 PM",
-      bestTime: "Mid-day for cool interior",
+      bestTime: "Mid-day for cool interior retreat",
       audioSnippet: "https://upload.wikimedia.org/wikipedia/commons/7/7f/Souq_in_Marrakesh.ogg"
     },
     image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Fondouk_Nejjarine.jpg/640px-Fondouk_Nejjarine.jpg"
@@ -102,14 +107,15 @@ export const landmarks = [
     lng: -4.9828,
     category: "Sacred",
     intro: "A Marinid masterpiece where the spiritual and the scholarly intertwine.",
+    localTip: "Trace the Arabic calligraphy carved into the stucco; it reads like a woven ribbon binding the architecture together.",
     facts: [
-      "Built 1350-55 by Sultan Abu Inan Faris",
-      "Functions as both madrasa and congregational mosque",
-      "Features a famous hydraulic clock"
+      "Built between 1350 and 1355 by Sultan Abu Inan Faris",
+      "Functions as both an educational madrasa and a congregational mosque",
+      "Features the remnants of a famous, complex hydraulic water clock"
     ],
     info: {
       hours: "9:00 AM - 5:00 PM",
-      bestTime: "Morning",
+      bestTime: "Early morning to avoid crowds",
       audioSnippet: "https://upload.wikimedia.org/wikipedia/commons/e/e4/Muezzin_call_to_prayer_from_Blue_Mosque_Istanbul.ogg"
     },
     detailLens: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Bou_Inania_Madrasa_courtyard.jpg/1280px-Bou_Inania_Madrasa_courtyard.jpg",
@@ -121,11 +127,12 @@ export const landmarks = [
     lat: 34.0629,
     lng: -4.9850,
     category: "Taste",
-    intro: "A cultural crossroads serving camel burgers and storytelling in a restored townhouse.",
+    intro: "A cultural crossroads in a restored townhouse, blending modern energy with ancient storytelling.",
+    localTip: "Time your visit for Thursday evenings when traditional Hakawati (storytellers) spin ancient myths in dual languages.",
     facts: [
-      "Famous for camel burgers",
-      "Hosts traditional storytelling",
-      "Restored 250-year-old courtyard house"
+      "Famous for introducing the camel burger",
+      "A hub for cross-cultural exchange and local arts",
+      "Spread across a labyrinthine 250-year-old courtyard house"
     ],
     info: {
       hours: "9:00 AM - 11:00 PM",
@@ -141,14 +148,15 @@ export const landmarks = [
     lng: -4.9799,
     category: "Stay",
     intro: "Andalusian grandeur meets modern luxury in this Relais & Châteaux sanctuary.",
+    localTip: "Seek out the interior Moorish patio at dusk; the reflection pool mirrors the sky in a moment of absolute stillness.",
     facts: [
-      "Panoramic rooftop views of the Medina",
-      "Four harmonized patios",
-      "Traditional zellige and cedar craftsmanship"
+      "Offers panoramic rooftop views of the Medina and Atlas Mountains",
+      "Features four distinctly themed, harmonized patios",
+      "A living museum of traditional zellige and cedar craftsmanship"
     ],
     info: {
       hours: "Open 24 Hours",
-      bestTime: "Sunset on the roof",
+      bestTime: "Sunset drinks on the roof",
       audioSnippet: "https://upload.wikimedia.org/wikipedia/commons/7/7f/Souq_in_Marrakesh.ogg"
     },
     image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Fondouk_Nejjarine.jpg/640px-Fondouk_Nejjarine.jpg"
