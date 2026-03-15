@@ -31,10 +31,10 @@ export function initMap() {
     attributionControl: false
   });
 
-  // OpenStreetMap Tile Layer (for now, eventually custom style)
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  // Clean, minimalist CartoDB Positron Tile Layer
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
     maxZoom: 19,
-    attribution: '&copy; OpenStreetMap contributors'
+    attribution: '&copy; OpenStreetMap contributors, &copy; CARTO'
   }).addTo(map);
 
   // Initialize Marker Layer Group
@@ -103,9 +103,29 @@ export function initMap() {
       }
       routePolyline.addTo(map);
       map.fitBounds(routePolyline.getBounds(), { padding: [50, 50] });
+
+      // Add floating badge
+      let badge = document.getElementById('route-badge');
+      if (!badge) {
+        badge = document.createElement('div');
+        badge.id = 'route-badge';
+        badge.className = 'route-badge';
+        badge.innerHTML = '<span>Estimated Walk: 45 min</span>';
+        document.getElementById('app').appendChild(badge);
+
+        // Use a small timeout to allow CSS transition to trigger
+        setTimeout(() => badge.classList.add('visible'), 10);
+      }
     } else {
       if (routePolyline) {
         routePolyline.remove();
+      }
+
+      // Remove floating badge
+      const badge = document.getElementById('route-badge');
+      if (badge) {
+        badge.classList.remove('visible');
+        setTimeout(() => badge.remove(), 300); // match transition duration
       }
     }
   });

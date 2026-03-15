@@ -1,7 +1,7 @@
 
-  VITE v7.3.1  ready in 388 ms
+  VITE v7.3.1  ready in 362 ms
 
   ➜  Local:   http://localhost:5173/
   ➜  Network: use --host to expose
-9:40:26 PM [vite] (client) page reload index.html
-9:45:32 PM [vite] (client) page reload src/components/DetailPanel.js
+9:47:05 PM [vite] (client) hmr update /src/styles/main.css, /src/styles/main.css?direct
+9:49:57 PM [vite] (client) hmr update /src/styles/main.css, /src/styles/main.css?direct

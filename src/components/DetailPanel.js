@@ -43,6 +43,13 @@ export function initDetailPanel() {
           <!-- Hours, etc -->
         </div>
       </div>
+
+      <div class="info-section timeline-section" style="display: none;">
+        <h3>History</h3>
+        <ul class="timeline-list">
+          <!-- Timeline events injected here -->
+        </ul>
+      </div>
     </div>
   `;
 
@@ -113,9 +120,20 @@ export function openDetailPanel(data) {
   }
 
   const img = document.createElement('img');
-  img.src = data.image || 'https://via.placeholder.com/600x300';
   img.alt = data.title;
   img.className = 'hero-image';
+
+  img.onload = () => {
+    img.classList.add('loaded');
+  };
+
+  img.onerror = () => {
+    // Fallback if image fails
+    img.src = 'https://via.placeholder.com/600x300?text=Image+Unavailable';
+    img.classList.add('loaded');
+  };
+
+  img.src = data.image || 'https://via.placeholder.com/600x300';
   imgContainer.appendChild(img);
 
   // Facts
@@ -161,6 +179,36 @@ export function openDetailPanel(data) {
 
   visitorInfo.appendChild(hoursP);
   visitorInfo.appendChild(bestTimeP);
+
+  // Timeline
+  const timelineSection = panel.querySelector('.timeline-section');
+  const timelineList = panel.querySelector('.timeline-list');
+  // Clear existing timeline
+  while (timelineList.firstChild) {
+    timelineList.removeChild(timelineList.firstChild);
+  }
+
+  if (data.timeline && data.timeline.length > 0) {
+    data.timeline.forEach(item => {
+      const li = document.createElement('li');
+      li.className = 'timeline-event';
+
+      const year = document.createElement('span');
+      year.className = 'timeline-year';
+      year.textContent = item.year;
+
+      const desc = document.createElement('span');
+      desc.className = 'timeline-desc';
+      desc.textContent = item.event;
+
+      li.appendChild(year);
+      li.appendChild(desc);
+      timelineList.appendChild(li);
+    });
+    timelineSection.style.display = 'block';
+  } else {
+    timelineSection.style.display = 'none';
+  }
 
   // Audio Guide
   if (data.info.audioSnippet) {

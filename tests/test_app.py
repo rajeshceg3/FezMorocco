@@ -24,10 +24,10 @@ def test_app():
             count = markers.count()
             print(f"Found {count} markers.")
 
-            if count == 8:
-                print("SUCCESS: 8 markers confirmed.")
+            if count == 11:
+                print("SUCCESS: 11 markers confirmed.")
             else:
-                print(f"FAILURE: Expected 8 markers, found {count}.")
+                print(f"FAILURE: Expected 11 markers, found {count}.")
                 exit(1)
         except Exception as e:
              print(f"Test failed with error: {e}")
