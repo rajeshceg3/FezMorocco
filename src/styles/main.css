@@ -148,6 +148,12 @@ body {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.hero-image.loaded {
+  opacity: 1;
 }
 
 .intro-text {
@@ -196,6 +202,50 @@ body {
 .visitor-info p {
   margin-bottom: 6px;
   font-size: 0.95rem;
+}
+
+/* Timeline */
+.timeline-section {
+  margin-top: 24px;
+}
+
+.timeline-list {
+  list-style: none;
+  padding-left: 8px;
+  border-left: 2px solid rgba(31, 58, 95, 0.1); /* accent color light */
+}
+
+.timeline-event {
+  position: relative;
+  margin-bottom: 16px;
+  padding-left: 16px;
+}
+
+.timeline-event::before {
+  content: '';
+  position: absolute;
+  left: -13px;
+  top: 4px;
+  width: 8px;
+  height: 8px;
+  background-color: var(--color-base);
+  border: 2px solid var(--color-highlight);
+  border-radius: 50%;
+}
+
+.timeline-year {
+  display: block;
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--color-highlight);
+  margin-bottom: 4px;
+}
+
+.timeline-desc {
+  display: block;
+  font-size: 0.95rem;
+  color: #555;
+  line-height: 1.4;
 }
 
 /* Custom Audio Player Button */
@@ -282,6 +332,38 @@ body {
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+}
+
+/* Route Badge */
+.route-badge {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-10px);
+  background: var(--color-base);
+  color: var(--color-accent);
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 500;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  border: 1px solid rgba(31, 58, 95, 0.1);
+  z-index: 998;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.route-badge.visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+body.night-mode .route-badge {
+  background: var(--night-dock-bg);
+  color: var(--color-highlight);
+  border-color: var(--night-border);
 }
 
 /* Category Filter */

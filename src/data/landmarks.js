@@ -18,7 +18,11 @@ export const landmarks = [
       audioSnippet: "https://upload.wikimedia.org/wikipedia/commons/e/e4/Muezzin_call_to_prayer_from_Blue_Mosque_Istanbul.ogg"
     },
     detailLens: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Medersa_Attarine_Fes_Morocco.jpg/1280px-Medersa_Attarine_Fes_Morocco.jpg",
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Medersa_Attarine_Fes_Morocco.jpg/640px-Medersa_Attarine_Fes_Morocco.jpg"
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Medersa_Attarine_Fes_Morocco.jpg/640px-Medersa_Attarine_Fes_Morocco.jpg",
+    timeline: [
+      { year: "1323", event: "Commissioned by Sultan Uthman II Abu Said." },
+      { year: "1325", event: "Construction completed, becoming a premier educational institution." }
+    ]
   },
   {
     id: 2,
@@ -38,7 +42,11 @@ export const landmarks = [
       bestTime: "Sunset for the glow",
       audioSnippet: "https://upload.wikimedia.org/wikipedia/commons/7/7f/Souq_in_Marrakesh.ogg"
     },
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Bab_Bou_Jeloud.jpg/640px-Bab_Bou_Jeloud.jpg"
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Bab_Bou_Jeloud.jpg/640px-Bab_Bou_Jeloud.jpg",
+    timeline: [
+      { year: "12th c.", event: "Original modest gate built by the Almohads." },
+      { year: "1913", event: "Current monumental Moorish gate constructed by the French administration." }
+    ]
   },
   {
     id: 3,
@@ -58,7 +66,11 @@ export const landmarks = [
       bestTime: "Morning when dyes are fresh and active",
       audioSnippet: "https://upload.wikimedia.org/wikipedia/commons/7/7f/Souq_in_Marrakesh.ogg"
     },
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Fes_Tanneries.jpg/640px-Fes_Tanneries.jpg"
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Fes_Tanneries.jpg/640px-Fes_Tanneries.jpg",
+    timeline: [
+      { year: "11th c.", event: "Tannery established, shaping the economic heart of the city." },
+      { year: "2016", event: "Underwent significant restoration to preserve the historic structure and working conditions." }
+    ]
   },
   {
     id: 4,
@@ -78,7 +90,12 @@ export const landmarks = [
       bestTime: "During the call to prayer",
       audioSnippet: "https://upload.wikimedia.org/wikipedia/commons/e/e4/Muezzin_call_to_prayer_from_Blue_Mosque_Istanbul.ogg"
     },
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Al_Qarawiyyin_Mosque.jpg/640px-Al_Qarawiyyin_Mosque.jpg"
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Al_Qarawiyyin_Mosque.jpg/640px-Al_Qarawiyyin_Mosque.jpg",
+    timeline: [
+      { year: "859", event: "Founded as a mosque by Fatima al-Fihri." },
+      { year: "12th c.", event: "Expanded significantly by the Almoravids." },
+      { year: "1963", event: "Incorporated into Morocco's modern state university system." }
+    ]
   },
   {
     id: 5,
@@ -98,7 +115,11 @@ export const landmarks = [
       bestTime: "Mid-day for cool interior retreat",
       audioSnippet: "https://upload.wikimedia.org/wikipedia/commons/7/7f/Souq_in_Marrakesh.ogg"
     },
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Fondouk_Nejjarine.jpg/640px-Fondouk_Nejjarine.jpg"
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Fondouk_Nejjarine.jpg/640px-Fondouk_Nejjarine.jpg",
+    timeline: [
+      { year: "1711", event: "Built as a caravanserai for traveling merchants." },
+      { year: "1998", event: "Restored and reopened as the Museum of Wood Arts and Crafts." }
+    ]
   },
   {
     id: 6,
@@ -119,7 +140,11 @@ export const landmarks = [
       audioSnippet: "https://upload.wikimedia.org/wikipedia/commons/e/e4/Muezzin_call_to_prayer_from_Blue_Mosque_Istanbul.ogg"
     },
     detailLens: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Bou_Inania_Madrasa_courtyard.jpg/1280px-Bou_Inania_Madrasa_courtyard.jpg",
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Bou_Inania_Madrasa_courtyard.jpg/640px-Bou_Inania_Madrasa_courtyard.jpg"
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Bou_Inania_Madrasa_courtyard.jpg/640px-Bou_Inania_Madrasa_courtyard.jpg",
+    timeline: [
+      { year: "1351", event: "Founded by the Marinid sultan Abu Inan Faris." },
+      { year: "1356", event: "Construction completed. The famous water clock was installed." }
+    ]
   },
   {
     id: 7,
@@ -139,7 +164,11 @@ export const landmarks = [
       bestTime: "Lunch or evening jam session",
       audioSnippet: "https://upload.wikimedia.org/wikipedia/commons/7/7f/Souq_in_Marrakesh.ogg"
     },
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Bab_Bou_Jeloud.jpg/640px-Bab_Bou_Jeloud.jpg"
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Bab_Bou_Jeloud.jpg/640px-Bab_Bou_Jeloud.jpg",
+    timeline: [
+      { year: "18th c.", event: "Original courtyard house constructed." },
+      { year: "2006", event: "Restored and established as a cross-cultural cafe." }
+    ]
   },
   {
     id: 8,
@@ -159,6 +188,82 @@ export const landmarks = [
       bestTime: "Sunset drinks on the roof",
       audioSnippet: "https://upload.wikimedia.org/wikipedia/commons/7/7f/Souq_in_Marrakesh.ogg"
     },
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Fondouk_Nejjarine.jpg/640px-Fondouk_Nejjarine.jpg"
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Fondouk_Nejjarine.jpg/640px-Fondouk_Nejjarine.jpg",
+    timeline: [
+      { year: "1900", event: "Main building constructed by a prominent Fassi judge." },
+      { year: "1999", event: "Opened as one of the first luxury riad hotels in Fez." }
+    ]
+  },
+  {
+    id: 9,
+    title: "Zawiya of Moulay Idris II",
+    lat: 34.0648,
+    lng: -4.9750,
+    category: "Sacred",
+    intro: "The spiritual heart of Fez, housing the tomb of the city's founder and patron saint.",
+    localTip: "Observe the intricately carved wooden bars where locals tie threads and leave offerings, a quiet testament to living faith.",
+    facts: [
+      "The tomb of Moulay Idris II, who ruled Morocco from 807 to 828",
+      "Features a remarkable complex of arches, courtyards, and ablution fountains",
+      "The surrounding streets mark the sacred precinct (horm) where asylum was historically granted"
+    ],
+    info: {
+      hours: "Muslims only (interior)",
+      bestTime: "Early morning for quiet reverence",
+      audioSnippet: "https://upload.wikimedia.org/wikipedia/commons/e/e4/Muezzin_call_to_prayer_from_Blue_Mosque_Istanbul.ogg"
+    },
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Fondouk_Nejjarine.jpg/640px-Fondouk_Nejjarine.jpg",
+    timeline: [
+      { year: "1308", event: "A new Zawiya was built around the rediscovered uncorrupted body of Moulay Idris II." },
+      { year: "1717", event: "Major reconstruction by Sultan Moulay Ismail." }
+    ]
+  },
+  {
+    id: 10,
+    title: "Dar Batha Museum",
+    lat: 34.0600,
+    lng: -4.9815,
+    category: "Craft",
+    intro: "A former royal palace turned museum, celebrating the diverse artisan traditions of Fez.",
+    localTip: "Don't miss the Andalusian garden in the center, a perfectly proportioned oasis of calm away from the Medina's hum.",
+    facts: [
+      "Built by Sultan Hassan I and completed by his successor Abdelaziz",
+      "Houses an exceptional collection of Fassi blue pottery",
+      "The garden frequently hosts concerts during the Sacred Music Festival"
+    ],
+    info: {
+      hours: "9:00 AM - 5:00 PM (Closed Tuesdays)",
+      bestTime: "Mid-day to escape the sun in the gardens",
+      audioSnippet: "https://upload.wikimedia.org/wikipedia/commons/7/7f/Souq_in_Marrakesh.ogg"
+    },
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Fes_Tanneries.jpg/640px-Fes_Tanneries.jpg",
+    timeline: [
+      { year: "1897", event: "Palace construction completed by Sultan Abdelaziz." },
+      { year: "1915", event: "Transformed into a museum of arts and traditions." }
+    ]
+  },
+  {
+    id: 11,
+    title: "Merenid Tombs",
+    lat: 34.0700,
+    lng: -4.9830,
+    category: "Architecture",
+    intro: "The skeletal remains of monumental tombs perched on the northern hills, watching over the city below.",
+    localTip: "Bring a wide-angle lens and wait for the sunset to turn the entire Medina golden beneath you.",
+    facts: [
+      "Built during the 14th-century Marinid dynasty",
+      "Though heavily ruined, they offer the most comprehensive panoramic view of Fez el-Bali",
+      "The site is a popular gathering spot for locals at dusk"
+    ],
+    info: {
+      hours: "Open 24 Hours",
+      bestTime: "Late afternoon leading into sunset",
+      audioSnippet: "https://upload.wikimedia.org/wikipedia/commons/7/7f/Souq_in_Marrakesh.ogg"
+    },
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Bab_Bou_Jeloud.jpg/640px-Bab_Bou_Jeloud.jpg",
+    timeline: [
+      { year: "14th c.", event: "Constructed as a royal necropolis for the Marinid sultans." },
+      { year: "16th c.", event: "Fell into ruin following the decline of the Marinid dynasty." }
+    ]
   }
 ];
