@@ -8,7 +8,10 @@ export function initDetailPanel() {
   // Static structure is safe to use innerHTML for
   panel.innerHTML = `
     <div class="panel-header">
-      <h2 class="panel-title">Landmark Name</h2>
+      <div class="title-container">
+        <h2 class="panel-title">Landmark Name</h2>
+        <span class="atmosphere-tag" style="display: none;"></span>
+      </div>
       <div class="header-actions">
         <button class="save-btn" aria-label="Save landmark">
           <svg class="bookmark-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -55,6 +58,13 @@ export function initDetailPanel() {
         <h3>History</h3>
         <ul class="timeline-list">
           <!-- Timeline events injected here -->
+        </ul>
+      </div>
+
+      <div class="info-section etiquette-section" style="display: none;">
+        <h3>Etiquette & Protocol</h3>
+        <ul class="etiquette-list">
+          <!-- Etiquette items injected here -->
         </ul>
       </div>
     </div>
@@ -108,6 +118,15 @@ export function openDetailPanel(data) {
 
   // Populate data
   panel.querySelector('.panel-title').textContent = data.title;
+
+  const atmosphereTag = panel.querySelector('.atmosphere-tag');
+  if (data.atmosphere) {
+    atmosphereTag.textContent = data.atmosphere;
+    atmosphereTag.style.display = 'inline-block';
+  } else {
+    atmosphereTag.style.display = 'none';
+  }
+
   panel.querySelector('.intro-text').textContent = data.intro;
 
   // Local Tip
@@ -245,6 +264,26 @@ export function openDetailPanel(data) {
     processSection.style.display = 'block';
   } else {
     processSection.style.display = 'none';
+  }
+
+  // Etiquette
+  const etiquetteSection = panel.querySelector('.etiquette-section');
+  const etiquetteList = panel.querySelector('.etiquette-list');
+  // Clear existing etiquette
+  while (etiquetteList.firstChild) {
+    etiquetteList.removeChild(etiquetteList.firstChild);
+  }
+
+  if (data.etiquette && data.etiquette.length > 0) {
+    data.etiquette.forEach(item => {
+      const li = document.createElement('li');
+      li.className = 'etiquette-item';
+      li.textContent = item;
+      etiquetteList.appendChild(li);
+    });
+    etiquetteSection.style.display = 'block';
+  } else {
+    etiquetteSection.style.display = 'none';
   }
 
   // Audio Guide
