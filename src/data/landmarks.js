@@ -61,6 +61,12 @@ export const landmarks = [
       "Uses natural dyes like poppy (red), indigo (blue), and henna (orange)",
       "Best viewed from the surrounding leather shop terraces"
     ],
+    process: [
+      { step: "1. Cleansing", description: "Hides are soaked in white stone vats containing a mixture of cow urine, pigeon feces, quicklime, and water to break down tough proteins." },
+      { step: "2. Softening", description: "Artisans tread the hides barefoot for hours in the acidic mixture until they become supple enough to absorb dye." },
+      { step: "3. Dyeing", description: "The softened leather is moved to brown vats filled with natural colorants like poppy flower (red), indigo (blue), henna (orange), and cedar wood (brown)." },
+      { step: "4. Drying", description: "Dyed hides are laid out across the surrounding terraces and roofs to bake in the Moroccan sun before being crafted into goods." }
+    ],
     info: {
       hours: "8:00 AM - 7:00 PM",
       bestTime: "Morning when dyes are fresh and active",

@@ -204,6 +204,38 @@ body {
   font-size: 0.95rem;
 }
 
+/* Craft Process */
+.process-section {
+  margin-top: 24px;
+}
+
+.process-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.process-step {
+  background: rgba(31, 58, 95, 0.03);
+  padding: 16px;
+  border-radius: 8px;
+  border-left: 3px solid var(--color-highlight);
+}
+
+.process-step-title {
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--color-accent);
+  margin-bottom: 6px;
+}
+
+.process-step-desc {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: #555;
+}
+
 /* Timeline */
 .timeline-section {
   margin-top: 24px;
@@ -321,6 +353,10 @@ body {
   color: var(--color-highlight);
 }
 
+.dock-btn:active {
+  transform: translateY(-2px) scale(0.92);
+}
+
 .dock-btn svg {
   width: 24px;
   height: 24px;
@@ -409,6 +445,10 @@ body.night-mode .route-badge {
   color: white;
 }
 
+.cat-btn:active {
+  transform: scale(0.96);
+}
+
 /* Landing Screen */
 .landing-screen {
   position: absolute;
@@ -478,6 +518,11 @@ body.night-mode .route-badge {
   color: white;
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(31, 58, 95, 0.2);
+}
+
+.btn-enter:active {
+  transform: translateY(0) scale(0.96);
+  box-shadow: 0 2px 6px rgba(31, 58, 95, 0.1);
 }
 
 /* Night Mode */

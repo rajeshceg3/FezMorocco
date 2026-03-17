@@ -44,6 +44,13 @@ export function initDetailPanel() {
         </div>
       </div>
 
+      <div class="info-section process-section" style="display: none;">
+        <h3>Craft Process</h3>
+        <div class="process-list">
+          <!-- Process steps injected here -->
+        </div>
+      </div>
+
       <div class="info-section timeline-section" style="display: none;">
         <h3>History</h3>
         <ul class="timeline-list">
@@ -210,6 +217,36 @@ export function openDetailPanel(data) {
     timelineSection.style.display = 'none';
   }
 
+  // Process Steps
+  const processSection = panel.querySelector('.process-section');
+  const processList = panel.querySelector('.process-list');
+  // Clear existing process
+  while (processList.firstChild) {
+    processList.removeChild(processList.firstChild);
+  }
+
+  if (data.process && data.process.length > 0) {
+    data.process.forEach(item => {
+      const stepDiv = document.createElement('div');
+      stepDiv.className = 'process-step';
+
+      const stepTitle = document.createElement('h4');
+      stepTitle.className = 'process-step-title';
+      stepTitle.textContent = item.step;
+
+      const stepDesc = document.createElement('p');
+      stepDesc.className = 'process-step-desc';
+      stepDesc.textContent = item.description;
+
+      stepDiv.appendChild(stepTitle);
+      stepDiv.appendChild(stepDesc);
+      processList.appendChild(stepDiv);
+    });
+    processSection.style.display = 'block';
+  } else {
+    processSection.style.display = 'none';
+  }
+
   // Audio Guide
   if (data.info.audioSnippet) {
     const audioContainer = document.createElement('div');
@@ -278,35 +315,77 @@ function openLens(imageUrl) {
   overlay.style.left = '0';
   overlay.style.width = '100%';
   overlay.style.height = '100%';
-  overlay.style.backgroundColor = 'rgba(0,0,0,0.9)';
+  overlay.style.backgroundColor = 'rgba(0,0,0,0.95)';
   overlay.style.zIndex = '3000';
   overlay.style.display = 'flex';
   overlay.style.justifyContent = 'center';
   overlay.style.alignItems = 'center';
-  overlay.style.cursor = 'zoom-out';
+  overlay.style.opacity = '0';
+  overlay.style.transition = 'opacity 0.4s ease';
+
+  // Close button for better UX
+  const closeBtn = document.createElement('button');
+  closeBtn.innerHTML = '×';
+  closeBtn.className = 'lens-close-btn';
+  closeBtn.style.position = 'absolute';
+  closeBtn.style.top = '24px';
+  closeBtn.style.right = '24px';
+  closeBtn.style.background = 'none';
+  closeBtn.style.border = 'none';
+  closeBtn.style.color = 'white';
+  closeBtn.style.fontSize = '3rem';
+  closeBtn.style.cursor = 'pointer';
+  closeBtn.style.opacity = '0.7';
+  closeBtn.style.transition = 'opacity 0.3s ease';
+  closeBtn.style.zIndex = '3010';
+
+  closeBtn.onmouseenter = () => closeBtn.style.opacity = '1';
+  closeBtn.onmouseleave = () => closeBtn.style.opacity = '0.7';
 
   const img = document.createElement('img');
   img.src = imageUrl;
-  img.style.maxWidth = '100%';
-  img.style.maxHeight = '100%';
-  img.style.transition = 'transform 0.3s ease';
+  img.style.maxWidth = '90%';
+  img.style.maxHeight = '90%';
+  img.style.objectFit = 'contain';
+  img.style.transition = 'transform 0.4s cubic-bezier(0.25, 1, 0.5, 1)';
   img.style.cursor = 'zoom-in';
+  img.style.borderRadius = '8px';
+  img.style.boxShadow = '0 10px 40px rgba(0,0,0,0.5)';
 
   // Simple zoom effect on click
   let zoomed = false;
   img.onclick = (e) => {
     e.stopPropagation();
     zoomed = !zoomed;
-    img.style.transform = zoomed ? 'scale(2)' : 'scale(1)';
+    img.style.transform = zoomed ? 'scale(1.5)' : 'scale(1)';
     img.style.cursor = zoomed ? 'zoom-out' : 'zoom-in';
   };
 
-  overlay.onclick = () => {
-    document.body.removeChild(overlay);
+  const closeLens = () => {
+    overlay.style.opacity = '0';
+    setTimeout(() => {
+      if (document.body.contains(overlay)) {
+        document.body.removeChild(overlay);
+      }
+    }, 400); // match transition time
   };
 
+  closeBtn.onclick = (e) => {
+    e.stopPropagation();
+    closeLens();
+  };
+
+  overlay.onclick = () => {
+    closeLens();
+  };
+
+  overlay.appendChild(closeBtn);
   overlay.appendChild(img);
   document.body.appendChild(overlay);
+
+  // Trigger reflow for fade-in
+  void overlay.offsetWidth;
+  overlay.style.opacity = '1';
 }
 
 export function closeDetailPanel() {
