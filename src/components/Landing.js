@@ -6,8 +6,22 @@ export function initLanding() {
   const landingScreen = document.createElement('div');
   landingScreen.className = 'landing-screen';
 
+  const currentHour = new Date().getHours();
+  let greeting = "Welcome to";
+
+  if (currentHour >= 5 && currentHour < 12) {
+    greeting = "Morning in";
+  } else if (currentHour >= 12 && currentHour < 17) {
+    greeting = "Afternoon in";
+  } else if (currentHour >= 17 && currentHour < 20) {
+    greeting = "Dusk over";
+  } else {
+    greeting = "Night falls on";
+  }
+
   landingScreen.innerHTML = `
     <div class="landing-content">
+      <p class="landing-greeting">${greeting}</p>
       <h1 class="landing-title">Fez</h1>
       <p class="landing-subtitle">The Spiritual Capital of Morocco</p>
       <button class="btn-enter">Begin the Walk</button>

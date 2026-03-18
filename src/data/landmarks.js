@@ -5,6 +5,12 @@ export const landmarks = [
     lat: 34.0645,
     lng: -4.9734,
     category: "Sacred",
+    atmosphere: "Reverent & Intimate",
+    etiquette: [
+      "Maintain a quiet voice",
+      "Dress modestly (shoulders and knees covered)",
+      "Avoid using flash photography"
+    ],
     intro: "A masterpiece of Marinid architecture, where zellige tilework whispers the divine geometry of the cosmos.",
     localTip: "Look up. The cedar canopy seems to float above the courtyard, a testament to masters who understood light as a building material.",
     facts: [
@@ -30,6 +36,7 @@ export const landmarks = [
     lat: 34.0608,
     lng: -4.9863,
     category: "Architecture",
+    atmosphere: "Bustling & Vibrant",
     intro: "The grand entrance to the Medina, shimmering with Fassi blue on the outside and Islamic green on the inside.",
     localTip: "Stand precisely at the center arch; it neatly frames the minaret of the Bou Inania Madrasa down the street.",
     facts: [
@@ -54,6 +61,11 @@ export const landmarks = [
     lat: 34.0667,
     lng: -4.9708,
     category: "Craft",
+    atmosphere: "Industrious & Pungent",
+    etiquette: [
+      "Accept the mint offered (it helps with the smell)",
+      "Tipping the guide/shop owner is expected if you observe from their terrace"
+    ],
     intro: "A vibrant patchwork of stone vessels filled with natural dyes, unchanged since the 11th century.",
     localTip: "Accept the sprig of mint offered at the terrace entrances—you will need it to cut through the pungent scent of history.",
     facts: [
@@ -84,6 +96,12 @@ export const landmarks = [
     lat: 34.0642,
     lng: -4.9731,
     category: "Sacred",
+    atmosphere: "Scholarly & Timeless",
+    etiquette: [
+      "Non-Muslims are not permitted to enter the prayer hall",
+      "Observe quietly from the open doorways",
+      "Dress modestly"
+    ],
     intro: "The oldest continuously operating educational institution in the world, the quiet heartbeat of Fes.",
     localTip: "Though non-Muslims cannot enter the prayer hall, linger by the brass doors to hear the acoustic resonance of the courtyard.",
     facts: [
@@ -109,6 +127,11 @@ export const landmarks = [
     lat: 34.0633,
     lng: -4.9742,
     category: "Craft",
+    atmosphere: "Calm & Aromatic",
+    etiquette: [
+      "No touching the historic artifacts",
+      "Speak softly in the galleries"
+    ],
     intro: "A restored funduq (inn) showcasing the exquisite wood carving traditions of Fes.",
     localTip: "Take tea on the rooftop café. The view offers a rare, serene panorama of the sprawling Medina roofscape.",
     facts: [
@@ -133,6 +156,12 @@ export const landmarks = [
     lat: 34.0619,
     lng: -4.9828,
     category: "Sacred",
+    atmosphere: "Peaceful & Ornate",
+    etiquette: [
+      "Remove shoes before stepping onto the prayer hall carpets (if permitted)",
+      "Maintain respectful silence",
+      "Modest dress required"
+    ],
     intro: "A Marinid masterpiece where the spiritual and the scholarly intertwine.",
     localTip: "Trace the Arabic calligraphy carved into the stucco; it reads like a woven ribbon binding the architecture together.",
     facts: [
@@ -158,6 +187,7 @@ export const landmarks = [
     lat: 34.0629,
     lng: -4.9850,
     category: "Taste",
+    atmosphere: "Energetic & Eclectic",
     intro: "A cultural crossroads in a restored townhouse, blending modern energy with ancient storytelling.",
     localTip: "Time your visit for Thursday evenings when traditional Hakawati (storytellers) spin ancient myths in dual languages.",
     facts: [
@@ -182,6 +212,7 @@ export const landmarks = [
     lat: 34.0615,
     lng: -4.9799,
     category: "Stay",
+    atmosphere: "Luxurious & Serene",
     intro: "Andalusian grandeur meets modern luxury in this Relais & Châteaux sanctuary.",
     localTip: "Seek out the interior Moorish patio at dusk; the reflection pool mirrors the sky in a moment of absolute stillness.",
     facts: [
@@ -206,6 +237,12 @@ export const landmarks = [
     lat: 34.0648,
     lng: -4.9750,
     category: "Sacred",
+    atmosphere: "Deeply Devotional",
+    etiquette: [
+      "Non-Muslims may not enter, respect the wooden boundary bar",
+      "Do not photograph worshippers without permission",
+      "Maintain a deeply respectful demeanor in the surrounding precinct"
+    ],
     intro: "The spiritual heart of Fez, housing the tomb of the city's founder and patron saint.",
     localTip: "Observe the intricately carved wooden bars where locals tie threads and leave offerings, a quiet testament to living faith.",
     facts: [
@@ -230,6 +267,7 @@ export const landmarks = [
     lat: 34.0600,
     lng: -4.9815,
     category: "Craft",
+    atmosphere: "Regal & Oasis-like",
     intro: "A former royal palace turned museum, celebrating the diverse artisan traditions of Fez.",
     localTip: "Don't miss the Andalusian garden in the center, a perfectly proportioned oasis of calm away from the Medina's hum.",
     facts: [
@@ -254,6 +292,11 @@ export const landmarks = [
     lat: 34.0700,
     lng: -4.9830,
     category: "Architecture",
+    atmosphere: "Sweeping & Melancholic",
+    etiquette: [
+      "The terrain is uneven; wear appropriate footwear",
+      "Be cautious if visiting after dark"
+    ],
     intro: "The skeletal remains of monumental tombs perched on the northern hills, watching over the city below.",
     localTip: "Bring a wide-angle lens and wait for the sunset to turn the entire Medina golden beneath you.",
     facts: [
