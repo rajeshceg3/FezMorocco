@@ -19,11 +19,21 @@ export function initLanding() {
     greeting = "Night falls on";
   }
 
+  const proverbs = [
+    "“Where water runs, the heart opens.”",
+    "“Patience is the key to the labyrinth.”",
+    "“A thousand years of silence speaks in these walls.”",
+    "“The hand crafts what the soul envisions.”",
+    "“Every doorway is a journey.”"
+  ];
+  const randomProverb = proverbs[Math.floor(Math.random() * proverbs.length)];
+
   landingScreen.innerHTML = `
     <div class="landing-content">
       <p class="landing-greeting">${greeting}</p>
       <h1 class="landing-title">Fez</h1>
       <p class="landing-subtitle">The Spiritual Capital of Morocco</p>
+      <p class="landing-proverb">${randomProverb}</p>
       <button class="btn-enter">Begin the Walk</button>
     </div>
   `;

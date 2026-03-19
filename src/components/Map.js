@@ -60,6 +60,7 @@ export function initMap() {
     });
 
     marker.on('click', () => {
+      document.dispatchEvent(new CustomEvent('open-landmark', { detail: { landmark } }));
       openDetailPanel(landmark);
     });
 
@@ -84,6 +85,16 @@ export function initMap() {
   document.addEventListener('saved-places-updated', () => {
     if (isSavedFilterActive) {
       applyFilters(isSavedFilterActive, currentCategoryFilter);
+    }
+  });
+
+  // Listen for map panning from related landmarks
+  document.addEventListener('open-landmark', (e) => {
+    if (map) {
+      map.flyTo([e.detail.landmark.lat, e.detail.landmark.lng], 16, {
+        duration: 1.5,
+        easeLinearity: 0.25
+      });
     }
   });
 

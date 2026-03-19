@@ -1,3 +1,5 @@
+import { landmarks } from '../data/landmarks.js';
+
 let currentAudio = null;
 
 export function initDetailPanel() {
@@ -66,6 +68,13 @@ export function initDetailPanel() {
         <ul class="etiquette-list">
           <!-- Etiquette items injected here -->
         </ul>
+      </div>
+
+      <div class="info-section related-section" style="display: none;">
+        <h3>Continue Your Journey</h3>
+        <div class="related-list">
+          <!-- Related landmarks injected here -->
+        </div>
       </div>
     </div>
   `;
@@ -340,6 +349,54 @@ export function openDetailPanel(data) {
     lensBtn.textContent = 'Examine Details';
     lensBtn.onclick = () => openLens(data.detailLens);
     visitorInfo.appendChild(lensBtn);
+  }
+
+  // Related Landmarks
+  const relatedSection = panel.querySelector('.related-section');
+  const relatedList = panel.querySelector('.related-list');
+
+  while (relatedList.firstChild) {
+    relatedList.removeChild(relatedList.firstChild);
+  }
+
+  const related = landmarks.filter(l => l.category === data.category && l.id !== data.id).slice(0, 2);
+
+  if (related.length > 0) {
+    related.forEach(rel => {
+      const card = document.createElement('button');
+      card.className = 'related-card';
+
+      const img = document.createElement('div');
+      img.className = 'related-img';
+      img.style.backgroundImage = `url(${rel.image})`;
+
+      const textDiv = document.createElement('div');
+      textDiv.className = 'related-text';
+
+      const title = document.createElement('h4');
+      title.textContent = rel.title;
+
+      const category = document.createElement('span');
+      category.textContent = rel.category;
+
+      textDiv.appendChild(title);
+      textDiv.appendChild(category);
+
+      card.appendChild(img);
+      card.appendChild(textDiv);
+
+      card.onclick = () => {
+        document.dispatchEvent(new CustomEvent('open-landmark', { detail: { landmark: rel } }));
+        openDetailPanel(rel);
+        // Scroll back to top smoothly
+        panel.scrollTo({ top: 0, behavior: 'smooth' });
+      };
+
+      relatedList.appendChild(card);
+    });
+    relatedSection.style.display = 'block';
+  } else {
+    relatedSection.style.display = 'none';
   }
 
   // Show panel

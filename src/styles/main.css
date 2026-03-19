@@ -295,6 +295,70 @@ body {
   line-height: 1.4;
 }
 
+/* Related Landmarks */
+.related-section {
+  margin-top: 32px;
+  border-top: 1px solid rgba(0,0,0,0.05);
+  padding-top: 24px;
+}
+
+.related-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.related-card {
+  display: flex;
+  align-items: center;
+  background: white;
+  border: 1px solid rgba(31, 58, 95, 0.1);
+  border-radius: 12px;
+  padding: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: left;
+}
+
+.related-card:hover {
+  background: rgba(244, 237, 227, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.related-card:active {
+  transform: scale(0.98);
+}
+
+.related-img {
+  width: 60px;
+  height: 60px;
+  border-radius: 8px;
+  background-size: cover;
+  background-position: center;
+  margin-right: 16px;
+  flex-shrink: 0;
+}
+
+.related-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.related-text h4 {
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  color: var(--color-accent);
+  margin-bottom: 4px;
+}
+
+.related-text span {
+  font-size: 0.8rem;
+  color: var(--color-highlight);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
 /* Etiquette Protocol */
 .etiquette-section {
   margin-top: 24px;
@@ -553,9 +617,20 @@ body.night-mode .route-badge {
   font-family: var(--font-serif);
   font-size: 1.25rem;
   color: var(--color-highlight);
-  margin-bottom: 48px;
+  margin-bottom: 24px;
   letter-spacing: 1px;
   text-transform: uppercase;
+}
+
+.landing-proverb {
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  font-style: italic;
+  color: var(--color-accent);
+  opacity: 0.8;
+  margin-bottom: 48px;
+  text-align: center;
+  max-width: 80%;
 }
 
 .btn-enter {
