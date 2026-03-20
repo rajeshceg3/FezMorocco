@@ -26,22 +26,36 @@ export function initLanding() {
     "“The hand crafts what the soul envisions.”",
     "“Every doorway is a journey.”"
   ];
-  const randomProverb = proverbs[Math.floor(Math.random() * proverbs.length)];
+
+  let currentProverbIndex = Math.floor(Math.random() * proverbs.length);
 
   landingScreen.innerHTML = `
     <div class="landing-content">
       <p class="landing-greeting">${greeting}</p>
       <h1 class="landing-title">Fez</h1>
       <p class="landing-subtitle">The Spiritual Capital of Morocco</p>
-      <p class="landing-proverb">${randomProverb}</p>
+      <p class="landing-proverb transition-opacity">${proverbs[currentProverbIndex]}</p>
       <button class="btn-enter">Begin the Walk</button>
     </div>
   `;
 
   app.appendChild(landingScreen);
 
+  const proverbEl = landingScreen.querySelector('.landing-proverb');
+  let timeoutId;
+  const proverbInterval = setInterval(() => {
+    proverbEl.style.opacity = '0';
+    timeoutId = setTimeout(() => {
+      currentProverbIndex = (currentProverbIndex + 1) % proverbs.length;
+      proverbEl.textContent = proverbs[currentProverbIndex];
+      proverbEl.style.opacity = '0.8';
+    }, 500);
+  }, 4000);
+
   const enterBtn = landingScreen.querySelector('.btn-enter');
   enterBtn.addEventListener('click', () => {
+    clearInterval(proverbInterval);
+    clearTimeout(timeoutId);
     // Hide Landing Screen
     landingScreen.classList.add('hidden');
 

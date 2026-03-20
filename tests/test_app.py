@@ -11,6 +11,14 @@ def test_app():
         try:
             page.goto("http://localhost:5173")
 
+            # Wait for landing screen to show, click enter to see map
+            print("Clicking 'Begin the Walk'...")
+            page.wait_for_selector(".btn-enter", timeout=10000)
+            page.click(".btn-enter")
+
+            # Wait for flyTo transition
+            time.sleep(4)
+
             # Verify map exists
             print("Checking for map container...")
             page.wait_for_selector("#map", timeout=10000)
@@ -19,8 +27,8 @@ def test_app():
             # Verify markers
             # Markers might take a moment to render
             print("Checking for markers...")
-            page.wait_for_selector(".leaflet-marker-icon", timeout=10000)
-            markers = page.locator(".leaflet-marker-icon")
+            page.wait_for_selector(".custom-marker", timeout=10000)
+            markers = page.locator(".custom-marker")
             count = markers.count()
             print(f"Found {count} markers.")
 
