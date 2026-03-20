@@ -148,6 +148,11 @@ body {
 
 .panel-content {
   padding: 24px;
+  transition: opacity 0.3s ease;
+}
+
+.panel-content.fading {
+  opacity: 0;
 }
 
 .hero-image-container {

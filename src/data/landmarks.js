@@ -37,6 +37,11 @@ export const landmarks = [
     lng: -4.9863,
     category: "Architecture",
     atmosphere: "Bustling & Vibrant",
+    etiquette: [
+      "Be prepared for crowds during peak hours",
+      "Watch out for passing mules and handcarts",
+      "Negotiate politely if hiring a guide near the gate"
+    ],
     intro: "The grand entrance to the Medina, shimmering with Fassi blue on the outside and Islamic green on the inside.",
     localTip: "Stand precisely at the center arch; it neatly frames the minaret of the Bou Inania Madrasa down the street.",
     facts: [
@@ -188,12 +193,21 @@ export const landmarks = [
     lng: -4.9850,
     category: "Taste",
     atmosphere: "Energetic & Eclectic",
+    etiquette: [
+      "Reservations are recommended for popular storytelling nights",
+      "Feel free to share a table and converse with fellow travelers and locals"
+    ],
     intro: "A cultural crossroads in a restored townhouse, blending modern energy with ancient storytelling.",
     localTip: "Time your visit for Thursday evenings when traditional Hakawati (storytellers) spin ancient myths in dual languages.",
     facts: [
       "Famous for introducing the camel burger",
       "A hub for cross-cultural exchange and local arts",
       "Spread across a labyrinthine 250-year-old courtyard house"
+    ],
+    process: [
+      { step: "1. Sourcing", description: "Fresh ingredients are gathered daily from the surrounding souks of the Medina." },
+      { step: "2. Preparation", description: "Spices are freshly ground, and the famous camel meat is marinated using traditional recipes adapted for modern tastes." },
+      { step: "3. Crafting", description: "Meals are cooked with care, often blending Moroccan staples like couscous or tagine with international culinary techniques." }
     ],
     info: {
       hours: "9:00 AM - 11:00 PM",
@@ -213,6 +227,10 @@ export const landmarks = [
     lng: -4.9799,
     category: "Stay",
     atmosphere: "Luxurious & Serene",
+    etiquette: [
+      "Speak softly in the central courtyard to maintain the serene atmosphere",
+      "Respect the privacy of hotel guests if you are only visiting for a meal or drink"
+    ],
     intro: "Andalusian grandeur meets modern luxury in this Relais & Châteaux sanctuary.",
     localTip: "Seek out the interior Moorish patio at dusk; the reflection pool mirrors the sky in a moment of absolute stillness.",
     facts: [
@@ -295,7 +313,8 @@ export const landmarks = [
     atmosphere: "Sweeping & Melancholic",
     etiquette: [
       "The terrain is uneven; wear appropriate footwear",
-      "Be cautious if visiting after dark"
+      "Be cautious if visiting after dark",
+      "Do not climb on the fragile historic ruins"
     ],
     intro: "The skeletal remains of monumental tombs perched on the northern hills, watching over the city below.",
     localTip: "Bring a wide-angle lens and wait for the sunset to turn the entire Medina golden beneath you.",
@@ -312,7 +331,8 @@ export const landmarks = [
     image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Bab_Bou_Jeloud.jpg/640px-Bab_Bou_Jeloud.jpg",
     timeline: [
       { year: "14th c.", event: "Constructed as a royal necropolis for the Marinid sultans." },
-      { year: "16th c.", event: "Fell into ruin following the decline of the Marinid dynasty." }
+      { year: "16th c.", event: "Fell into ruin following the decline of the Marinid dynasty." },
+      { year: "20th c.", event: "The site became a recognized historical monument, though much of its original grandeur is lost." }
     ]
   }
 ];

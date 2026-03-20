@@ -94,6 +94,13 @@ export function openDetailPanel(data) {
   const panel = document.getElementById('detail-panel');
   if (!panel) return;
 
+  const content = panel.querySelector('.panel-content');
+  // Ensure fading class is active initially if it's a re-render from related click
+  // so we can fade it IN after the DOM is updated.
+  if (!content.classList.contains('fading') && panel.classList.contains('visible')) {
+      content.classList.add('fading');
+  }
+
   // Set current landmark ID to the panel for saving
   panel.dataset.currentId = data.id;
 
@@ -386,10 +393,15 @@ export function openDetailPanel(data) {
       card.appendChild(textDiv);
 
       card.onclick = () => {
-        document.dispatchEvent(new CustomEvent('open-landmark', { detail: { landmark: rel } }));
-        openDetailPanel(rel);
-        // Scroll back to top smoothly
-        panel.scrollTo({ top: 0, behavior: 'smooth' });
+        const content = panel.querySelector('.panel-content');
+        content.classList.add('fading');
+
+        setTimeout(() => {
+          document.dispatchEvent(new CustomEvent('open-landmark', { detail: { landmark: rel } }));
+          openDetailPanel(rel);
+          // Scroll back to top smoothly
+          panel.scrollTo({ top: 0, behavior: 'smooth' });
+        }, 300); // Wait for fade out to complete (matches transition time)
       };
 
       relatedList.appendChild(card);
@@ -398,6 +410,11 @@ export function openDetailPanel(data) {
   } else {
     relatedSection.style.display = 'none';
   }
+
+  // Fade in content
+  setTimeout(() => {
+    content.classList.remove('fading');
+  }, 50);
 
   // Show panel
   panel.classList.add('visible');
