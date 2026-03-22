@@ -2,8 +2,10 @@ export class AudioController {
   constructor(audioSrc) {
     this.audio = new Audio(audioSrc);
     this.audio.loop = true;
-    this.audio.volume = 0.5;
+    this.targetVolume = 0.5;
+    this.audio.volume = this.targetVolume;
     this.isPlaying = false;
+    this.fadeInterval = null;
   }
 
   setTrack(audioSrc) {
@@ -11,11 +13,44 @@ export class AudioController {
       return;
     }
     const wasPlaying = this.isPlaying;
-    this.audio.pause();
-    this.audio.src = audioSrc;
+
     if (wasPlaying) {
-      this.play();
+      this.fadeOut(() => {
+        this.audio.pause();
+        this.audio.src = audioSrc;
+        this.play();
+        this.fadeIn();
+      });
+    } else {
+      this.audio.src = audioSrc;
     }
+  }
+
+  fadeOut(callback) {
+    if (this.fadeInterval) clearInterval(this.fadeInterval);
+    this.fadeInterval = setInterval(() => {
+      if (this.audio.volume > 0.05) {
+        this.audio.volume -= 0.05;
+      } else {
+        this.audio.volume = 0;
+        clearInterval(this.fadeInterval);
+        if (callback) callback();
+      }
+    }, 50);
+  }
+
+  fadeIn(callback) {
+    if (this.fadeInterval) clearInterval(this.fadeInterval);
+    this.audio.volume = 0;
+    this.fadeInterval = setInterval(() => {
+      if (this.audio.volume < this.targetVolume - 0.05) {
+        this.audio.volume += 0.05;
+      } else {
+        this.audio.volume = this.targetVolume;
+        clearInterval(this.fadeInterval);
+        if (callback) callback();
+      }
+    }, 50);
   }
 
   play() {

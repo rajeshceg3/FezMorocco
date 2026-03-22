@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
       newTrack = 'https://upload.wikimedia.org/wikipedia/commons/e/e4/Muezzin_call_to_prayer_from_Blue_Mosque_Istanbul.ogg';
     } else if (category === 'Craft') {
       // Using a different bustling track for craft if possible, or same as souk
-      newTrack = 'https://upload.wikimedia.org/wikipedia/commons/7/7f/Souq_in_Marrakesh.ogg';
+      newTrack = 'https://upload.wikimedia.org/wikipedia/commons/e/ea/Blacksmith_Working.ogg';
     } else if (category === 'Stay' || category === 'Architecture') {
       // For lack of a better generic peaceful track in wikimedia commons, using the same or another placeholder.
       // A trick is to use a different section of the same soundscape or just stick with the default if none available.
