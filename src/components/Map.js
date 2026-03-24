@@ -23,6 +23,29 @@ let routePolyline;
 let routeBadgeRemovalTimer = null;
 const allMarkers = [];
 
+function getCssPxVar(varName, fallback) {
+  const rootStyles = getComputedStyle(document.documentElement);
+  const value = parseFloat(rootStyles.getPropertyValue(varName));
+  return Number.isFinite(value) ? value : fallback;
+}
+
+function getRouteFitBoundsPadding() {
+  const dockHeight = getCssPxVar('--dock-height', 70);
+  const dockBottomGap = getCssPxVar('--dock-bottom-gap', 24);
+  const categoryFilterHeight = 46; // visible filter chip row + shadow/margins
+  const extraBottomGap = 12;
+
+  const bottomPadding = Math.max(
+    dockHeight + dockBottomGap + categoryFilterHeight + extraBottomGap,
+    150
+  );
+
+  return {
+    paddingTopLeft: [36, 36],
+    paddingBottomRight: [36, bottomPadding]
+  };
+}
+
 export function initMap() {
   // Initialize with a zoomed-out view for the landing experience
   map = L.map('map', {
@@ -119,7 +142,7 @@ export function initMap() {
         });
       }
       routePolyline.addTo(map);
-      map.fitBounds(routePolyline.getBounds(), { padding: [50, 50] });
+      map.fitBounds(routePolyline.getBounds(), getRouteFitBoundsPadding());
 
       // Add floating badge
       let badge = document.getElementById('route-badge');
