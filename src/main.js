@@ -24,6 +24,15 @@ document.addEventListener('DOMContentLoaded', () => {
     ambientAudio.toggle(e.detail.active);
   });
 
+  // Duck ambient sound when narration is active for better clarity.
+  document.addEventListener('audio-guide-state-change', (e) => {
+    if (e.detail.active) {
+      ambientAudio.duck();
+    } else {
+      ambientAudio.unduck();
+    }
+  });
+
   // Listen for landmark opening to contextually change audio track
   document.addEventListener('open-landmark', (e) => {
     const category = e.detail.landmark.category;
