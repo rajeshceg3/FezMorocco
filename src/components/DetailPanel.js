@@ -1,6 +1,45 @@
 import { landmarks } from '../data/landmarks.js';
 
 let currentAudio = null;
+let currentAudioButton = null;
+
+function dispatchAudioGuideState(active) {
+  document.dispatchEvent(new CustomEvent('audio-guide-state-change', { detail: { active } }));
+}
+
+function setAudioButtonState(button, state) {
+  if (!button) return;
+  button.classList.remove('playing');
+
+  if (state === 'loading') {
+    button.innerHTML = `<span class="icon">⋯</span> <span class="text">Loading Audio Guide…</span>`;
+    return;
+  }
+
+  if (state === 'playing') {
+    button.classList.add('playing');
+    button.innerHTML = `<span class="icon">⏸</span> <span class="text">Pause Audio Guide</span>`;
+    return;
+  }
+
+  if (state === 'error') {
+    button.innerHTML = `<span class="icon">⚠</span> <span class="text">Audio Unavailable</span>`;
+    return;
+  }
+
+  button.innerHTML = `<span class="icon">▶</span> <span class="text">Play Audio Guide</span>`;
+}
+
+function stopCurrentAudioGuide() {
+  if (!currentAudio) return;
+
+  currentAudio.pause();
+  currentAudio.currentTime = 0;
+  currentAudio = null;
+  setAudioButtonState(currentAudioButton, 'idle');
+  currentAudioButton = null;
+  dispatchAudioGuideState(false);
+}
 
 export function initDetailPanel() {
   const panel = document.createElement('div');
@@ -93,6 +132,7 @@ export function initDetailPanel() {
 export function openDetailPanel(data) {
   const panel = document.getElementById('detail-panel');
   if (!panel) return;
+  stopCurrentAudioGuide();
 
   const content = panel.querySelector('.panel-content');
   // Ensure fading class is active initially if it's a re-render from related click
@@ -309,38 +349,53 @@ export function openDetailPanel(data) {
 
     const audioBtn = document.createElement('button');
     audioBtn.className = 'custom-audio-btn';
-    audioBtn.innerHTML = `<span class="icon">▶</span> <span class="text">Play Audio Guide</span>`;
+    setAudioButtonState(audioBtn, 'idle');
+    audioBtn.setAttribute('aria-label', `Play audio guide for ${data.title}`);
 
     // Create new audio object
     const audioObj = new Audio(data.info.audioSnippet);
+    audioObj.preload = 'metadata';
+    audioObj.crossOrigin = 'anonymous';
 
-    audioBtn.onclick = () => {
+    audioBtn.onclick = async () => {
       if (currentAudio && currentAudio !== audioObj) {
-        currentAudio.pause();
-        currentAudio.currentTime = 0;
-        // Reset previous button if needed (handled by re-render, but good practice)
-        const activeBtn = panel.querySelector('.custom-audio-btn.playing');
-        if (activeBtn) {
-           activeBtn.classList.remove('playing');
-           activeBtn.innerHTML = `<span class="icon">▶</span> <span class="text">Play Audio Guide</span>`;
-        }
+        stopCurrentAudioGuide();
       }
 
       if (audioObj.paused) {
-        audioObj.play();
-        audioBtn.classList.add('playing');
-        audioBtn.innerHTML = `<span class="icon">⏸</span> <span class="text">Pause Audio Guide</span>`;
-        currentAudio = audioObj;
+        setAudioButtonState(audioBtn, 'loading');
+        try {
+          await audioObj.play();
+          setAudioButtonState(audioBtn, 'playing');
+          currentAudio = audioObj;
+          currentAudioButton = audioBtn;
+          dispatchAudioGuideState(true);
+        } catch (error) {
+          console.log('Audio guide failed to play:', error);
+          setAudioButtonState(audioBtn, 'error');
+          currentAudio = null;
+          currentAudioButton = null;
+          dispatchAudioGuideState(false);
+        }
       } else {
         audioObj.pause();
-        audioBtn.classList.remove('playing');
-        audioBtn.innerHTML = `<span class="icon">▶</span> <span class="text">Play Audio Guide</span>`;
+        setAudioButtonState(audioBtn, 'idle');
+        dispatchAudioGuideState(false);
       }
     };
 
     audioObj.onended = () => {
-       audioBtn.classList.remove('playing');
-       audioBtn.innerHTML = `<span class="icon">▶</span> <span class="text">Play Audio Guide</span>`;
+      setAudioButtonState(audioBtn, 'idle');
+      currentAudio = null;
+      currentAudioButton = null;
+      dispatchAudioGuideState(false);
+    };
+
+    audioObj.onerror = () => {
+      setAudioButtonState(audioBtn, 'error');
+      currentAudio = null;
+      currentAudioButton = null;
+      dispatchAudioGuideState(false);
     };
 
     audioContainer.appendChild(audioBtn);
@@ -505,10 +560,6 @@ export function closeDetailPanel() {
   const panel = document.getElementById('detail-panel');
   if (panel) {
     panel.classList.remove('visible');
-    if (currentAudio) {
-      currentAudio.pause();
-      currentAudio.currentTime = 0;
-      currentAudio = null;
-    }
+    stopCurrentAudioGuide();
   }
 }
