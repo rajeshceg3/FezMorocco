@@ -20,6 +20,7 @@ L.Icon.Default.mergeOptions({
 let map;
 let markersLayer;
 let routePolyline;
+let routeBadgeRemovalTimer = null;
 const allMarkers = [];
 
 export function initMap() {
@@ -102,6 +103,11 @@ export function initMap() {
   document.addEventListener('toggle-route', (e) => {
     if (!map) return;
     if (e.detail.active) {
+      if (routeBadgeRemovalTimer) {
+        clearTimeout(routeBadgeRemovalTimer);
+        routeBadgeRemovalTimer = null;
+      }
+
       if (!routePolyline) {
         routePolyline = L.polyline(guidedRoute, {
           color: ROUTE_HIGHLIGHT_COLOR,
@@ -123,10 +129,8 @@ export function initMap() {
         badge.className = 'route-badge';
         badge.innerHTML = '<span>Estimated Walk: 45 min</span>';
         document.getElementById('app').appendChild(badge);
-
-        // Use a small timeout to allow CSS transition to trigger
-        setTimeout(() => badge.classList.add('visible'), 10);
       }
+      badge.classList.add('visible');
     } else {
       if (routePolyline) {
         routePolyline.remove();
@@ -136,7 +140,15 @@ export function initMap() {
       const badge = document.getElementById('route-badge');
       if (badge) {
         badge.classList.remove('visible');
-        setTimeout(() => badge.remove(), 300); // match transition duration
+        routeBadgeRemovalTimer = setTimeout(() => {
+          routeBadgeRemovalTimer = null;
+          if (routePolyline && map.hasLayer(routePolyline)) return;
+
+          const currentBadge = document.getElementById('route-badge');
+          if (currentBadge) {
+            currentBadge.remove();
+          }
+        }, 300); // match transition duration
       }
     }
   });
