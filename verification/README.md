@@ -12,7 +12,7 @@ Removed mislabeled remote audio playback from the active path. Audio is now gene
 
 Proof: local Chromium checked all 11 landmarks in both themes at 320/390/1440 (66 states), plus filters, save/un-save, route toggle and map reset. After photo replacement, the same 66 states passed; the final 390 test explicitly required the nine real images to decode. verification/check.cjs executes those checks and produces screenshots. CI is a further gate, not a claim that CI has already passed.
 
-275 glyph-mask samples over entry, map controls and both detail-panel themes at three widths: minimum 5.972:1. Map tile labels are third-party content, outside this owned-UI measurement. Build and full npm audit passed with zero advisories.
+281 glyph-mask samples over entry, map controls and both detail-panel themes at three widths: minimum 5.972:1. Map tile labels are third-party content, outside this owned-UI measurement. Build and full npm audit passed with zero advisories.
 
 ## Content sources and limits
 
