@@ -784,3 +784,4 @@ button,a{touch-action:manipulation}button{min-height:44px;font-family:var(--font
 #app{position:fixed;inset:0;height:100dvh;overflow:hidden}.detail-panel:not(.visible){visibility:hidden;pointer-events:none}.detail-panel.visible{visibility:visible}
 
 #app{overflow:clip}
+@media(min-width:900px){.detail-panel{left:auto;right:20px;bottom:20px;width:560px;height:calc(100dvh - 40px);border-radius:20px}.detail-panel:not(.visible){transform:translateX(calc(100% + 24px))}.detail-panel.visible{transform:translateX(0)}.hero-image{height:270px}}
