@@ -49,7 +49,7 @@ export function initNavigation() {
     { id: 'explore', icon: ExploreIcon, label: 'Explore' },
     { id: 'route', icon: RouteIcon, label: 'Route' },
     { id: 'saved', icon: SavedIcon, label: 'Saved' },
-    { id: 'audio', icon: AudioIcon, label: 'Audio' },
+    { id: 'audio', icon: AudioIcon, label: 'Sound' },
     { id: 'night', icon: NightIcon, label: 'Night' }
   ];
 
@@ -64,9 +64,11 @@ export function initNavigation() {
     btn.className = 'dock-btn';
     if (item.id === 'explore') btn.classList.add('active');
     btn.dataset.id = item.id;
+    btn.setAttribute('aria-pressed','false');
     btn.innerHTML = `${item.icon}<span class="dock-label">${item.label}</span>`;
 
     btn.addEventListener('click', () => {
+      btn.setAttribute('aria-pressed',String(btn.getAttribute('aria-pressed')!=='true'));
       // Handle Dock Actions
       switch (item.id) {
         case 'explore': {
@@ -102,4 +104,5 @@ export function initNavigation() {
   });
 
   app.appendChild(dock);
+  document.addEventListener('ambient-audio-blocked',()=>{const b=dock.querySelector('[data-id=audio]');b.classList.remove('active');b.setAttribute('aria-pressed','false');b.querySelector('span').textContent='Unavailable';isAudioActive=false;});
 }

@@ -1,5 +1,5 @@
 import './styles/main.css';
-import { initMap, filterMarkers } from './components/Map.js';
+import { initMap } from './components/Map.js';
 import { initDetailPanel } from './components/DetailPanel.js';
 import { initNavigation } from './components/Navigation.js';
 import { initLanding } from './components/Landing.js';
@@ -12,12 +12,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initDetailPanel();
   initNavigation();
   initLanding();
-
-  // Listen for filter events from Navigation
-  document.addEventListener('filter-landmarks', (e) => {
-    const category = e.detail.category;
-    filterMarkers(category);
-  });
 
   // Listen for Ambient Audio toggle
   document.addEventListener('toggle-audio', (e) => {
