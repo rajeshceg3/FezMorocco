@@ -52,14 +52,17 @@ export function initMap() {
     center: [34.062, -4.975], // Centered on Fez Medina
     zoom: 13, // Zoomed out initially
     zoomControl: false,
-    attributionControl: false
+    attributionControl: true
   });
 
   // Clean, minimalist CartoDB Positron Tile Layer
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
-    attribution: '&copy; OpenStreetMap contributors, &copy; CARTO'
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>'
   }).addTo(map);
+
+  map.attributionControl.setPosition('topright');
+  L.control.zoom({position: 'topleft'}).addTo(map);
 
   // Initialize Marker Layer Group
   markersLayer = L.layerGroup().addTo(map);
@@ -116,7 +119,7 @@ export function initMap() {
   document.addEventListener('open-landmark', (e) => {
     if (map) {
       map.flyTo([e.detail.landmark.lat, e.detail.landmark.lng], 16, {
-        duration: 1.5,
+        duration: matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 1.5,
         easeLinearity: 0.25
       });
     }
@@ -150,7 +153,7 @@ export function initMap() {
         badge = document.createElement('div');
         badge.id = 'route-badge';
         badge.className = 'route-badge';
-        badge.innerHTML = '<span>Estimated Walk: 45 min</span>';
+        badge.innerHTML = '<span>Illustrative route, not turn-by-turn directions</span>';
         document.getElementById('app').appendChild(badge);
       }
       badge.classList.add('visible');
@@ -176,6 +179,12 @@ export function initMap() {
     }
   });
 
+  const tools=document.createElement('div');tools.className='map-tools';
+  const label=document.createElement('label');label.htmlFor='place-picker';label.textContent='Find a place';
+  const picker=document.createElement('select');picker.id='place-picker';picker.innerHTML='<option value="">Choose a landmark</option>';
+  landmarks.forEach(l=>{const option=document.createElement('option');option.value=l.id;option.textContent=l.title;picker.appendChild(option)});
+  picker.onchange=()=>{const l=landmarks.find(l=>String(l.id)===picker.value);if(l){document.dispatchEvent(new CustomEvent('open-landmark',{detail:{landmark:l}}));openDetailPanel(l)}};
+  const reset=document.createElement('button');reset.id='reset-map';reset.textContent='Reset map';reset.onclick=()=>map.setView([34.062,-4.975],15,{animate:false});tools.append(label,picker,reset);document.getElementById('app').appendChild(tools);
   // Expose map globally for debugging/testing
   window.map = map;
 }
@@ -215,7 +224,7 @@ function applyFilters(savedActive, category) {
 export function flyToMedina() {
   if (map) {
     map.flyTo([34.062, -4.975], 15, {
-      duration: 3, // 3 seconds animation
+      duration: matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 1, // 3 seconds animation
       easeLinearity: 0.25
     });
   }

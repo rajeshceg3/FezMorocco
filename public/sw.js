@@ -1,6 +1,6 @@
-const CACHE_NAME = 'fez-cache-v1';
-const TILE_CACHE_NAME = 'fez-tiles-v1';
-const ASSET_CACHE_NAME = 'fez-assets-v1';
+const CACHE_NAME = 'fez-cache-v2';
+const TILE_CACHE_NAME = 'fez-tiles-v2';
+const ASSET_CACHE_NAME = 'fez-assets-v2';
 
 const urlsToCache = [
   '/',
@@ -35,23 +35,9 @@ self.addEventListener('activate', event => {
 self.addEventListener('fetch', event => {
   const url = new URL(event.request.url);
 
-  // Cache First for Tiles
-  if (url.hostname.includes('tile.openstreetmap.org')) {
-    event.respondWith(
-      caches.open(TILE_CACHE_NAME).then(cache => {
-        return cache.match(event.request).then(response => {
-          if (response) {
-            return response;
-          }
-          return fetch(event.request).then(networkResponse => {
-            cache.put(event.request, networkResponse.clone());
-            return networkResponse;
-          });
-        });
-      })
-    );
-    return;
-  }
+  // Let the browser honor the tile server's HTTP cache headers.
+  if(url.hostname==='tile.openstreetmap.org') return;
+
 
   // Stale-While-Revalidate for Assets (Images, Audio, Scripts, Styles)
   if (

@@ -69,7 +69,7 @@ export const landmarks = [
     atmosphere: "Industrious & Pungent",
     etiquette: [
       "Accept the mint offered (it helps with the smell)",
-      "Tipping the guide/shop owner is expected if you observe from their terrace"
+      "Ask about terrace access conditions and any charges before entering"
     ],
     intro: "A vibrant patchwork of stone vessels filled with natural dyes, unchanged since the 11th century.",
     localTip: "Accept the sprig of mint offered at the terrace entrances—you will need it to cut through the pungent scent of history.",
@@ -234,7 +234,7 @@ export const landmarks = [
     intro: "Andalusian grandeur meets modern luxury in this Relais & Châteaux sanctuary.",
     localTip: "Seek out the interior Moorish patio at dusk; the reflection pool mirrors the sky in a moment of absolute stillness.",
     facts: [
-      "Offers panoramic rooftop views of the Medina and Atlas Mountains",
+      "A riad property in Fez; confirm current facilities directly with the hotel",
       "Features four distinctly themed, harmonized patios",
       "A living museum of traditional zellige and cedar craftsmanship"
     ],

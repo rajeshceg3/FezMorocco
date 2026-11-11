@@ -1,102 +1,11 @@
+// Imagined ambience only. No field-recording or place-specific claims.
 export class AudioController {
-  constructor(audioSrc) {
-    this.audio = new Audio(audioSrc);
-    this.audio.loop = true;
-    this.audio.preload = 'auto';
-    this.targetVolume = 0.5;
-    this.audio.volume = this.targetVolume;
-    this.isPlaying = false;
-    this.fadeInterval = null;
-    this.currentMaxVolume = this.targetVolume;
-
-    this._unlockAudio = this._unlockAudio.bind(this);
-    document.addEventListener('pointerdown', this._unlockAudio, { once: true });
-    document.addEventListener('keydown', this._unlockAudio, { once: true });
-  }
-
-  setTrack(audioSrc) {
-    if (this.audio.src === new URL(audioSrc, window.location.href).href) {
-      return;
-    }
-    const wasPlaying = this.isPlaying;
-
-    if (wasPlaying) {
-      this.fadeOut(() => {
-        this.audio.pause();
-        this.audio.src = audioSrc;
-        this.play();
-        this.fadeIn();
-      });
-    } else {
-      this.audio.src = audioSrc;
-      this.audio.load();
-    }
-  }
-
-  _unlockAudio() {
-    // Priming handler so first user interaction enables playback on strict browsers.
-  }
-
-  fadeOut(callback) {
-    this.fadeTo(0, callback);
-  }
-
-  fadeTo(target, callback) {
-    if (this.fadeInterval) clearInterval(this.fadeInterval);
-    this.fadeInterval = setInterval(() => {
-      if (Math.abs(this.audio.volume - target) > 0.05) {
-        const direction = this.audio.volume > target ? -0.05 : 0.05;
-        const nextVolume = this.audio.volume + direction;
-        this.audio.volume = Math.max(0, Math.min(1, nextVolume));
-      } else {
-        this.audio.volume = target;
-        clearInterval(this.fadeInterval);
-        if (callback) callback();
-      }
-    }, 50);
-  }
-
-  fadeIn(callback) {
-    this.fadeTo(this.currentMaxVolume, callback);
-  }
-
-  async play() {
-    this.isPlaying = true;
-    try {
-      await this.audio.play();
-      return true;
-    } catch (e) {
-      console.log('Audio play failed (user interaction needed):', e);
-      this.isPlaying = false;
-      document.dispatchEvent(new CustomEvent('ambient-audio-blocked'));
-      return false;
-    }
-  }
-
-  pause() {
-    this.isPlaying = false;
-    this.audio.pause();
-  }
-
-  toggle(shouldPlay) {
-    if (shouldPlay) {
-      this.play();
-    } else {
-      this.pause();
-    }
-  }
-
-  duck() {
-    this.currentMaxVolume = Math.max(0.1, this.targetVolume * 0.35);
-    if (this.isPlaying) {
-      this.fadeTo(this.currentMaxVolume);
-    }
-  }
-
-  unduck() {
-    this.currentMaxVolume = this.targetVolume;
-    if (this.isPlaying) {
-      this.fadeIn();
-    }
-  }
+  constructor(){this.ctx=null;this.isPlaying=false;this.timer=null;this.targetVolume=.1;this.currentMaxVolume=.1;this.gain=null}
+  get paused(){return !this.isPlaying}
+  setTrack(){} // One honest, generated palette rather than mislabeled foreign recordings.
+  async play(){if(this.isPlaying)return true;try{const C=window.AudioContext||window.webkitAudioContext;const ctx=new C();this.ctx=ctx;await ctx.resume();const gain=ctx.createGain();gain.gain.value=this.currentMaxVolume;gain.connect(ctx.destination);this.gain=gain;const buffer=ctx.createBuffer(1,ctx.sampleRate*3,ctx.sampleRate),d=buffer.getChannelData(0);let last=0;for(let i=0;i<d.length;i++){last=(last+.025*(Math.random()*2-1))/1.025;d[i]=last*3}const source=ctx.createBufferSource();source.buffer=buffer;source.loop=true;const filter=ctx.createBiquadFilter();filter.type='lowpass';filter.frequency.value=850;source.connect(filter).connect(gain);source.start();this.isPlaying=true;const bird=()=>{if(!this.isPlaying||this.ctx!==ctx||ctx.state==='closed')return;const now=ctx.currentTime;for(let i=0;i<2;i++){const o=ctx.createOscillator(),g=ctx.createGain(),t=now+i*.22;o.type='sine';o.frequency.setValueAtTime(1450+i*160,t);o.frequency.exponentialRampToValueAtTime(2200,t+.06);o.frequency.exponentialRampToValueAtTime(1600,t+.16);g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.09,t+.03);g.gain.exponentialRampToValueAtTime(.001,t+.19);o.connect(g).connect(gain);o.start(t);o.stop(t+.2)}this.timer=setTimeout(bird,7000+Math.random()*5000)};this.timer=setTimeout(bird,2200);return true}catch(e){this.pause();document.dispatchEvent(new CustomEvent('ambient-audio-blocked'));return false}}
+  pause(){this.isPlaying=false;clearTimeout(this.timer);const ctx=this.ctx;this.ctx=null;if(ctx&&ctx.state!=='closed')ctx.close().catch(()=>{});this.gain=null}
+  toggle(v){if(v)this.play();else this.pause()}
+  duck(){this.currentMaxVolume=.035;if(this.gain&&this.ctx)this.gain.gain.setTargetAtTime(.035,this.ctx.currentTime,.3)}
+  unduck(){this.currentMaxVolume=.1;if(this.gain&&this.ctx)this.gain.gain.setTargetAtTime(.1,this.ctx.currentTime,.3)}
 }

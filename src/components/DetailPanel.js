@@ -1,3 +1,5 @@
+import {photos} from '../data/photos.js';
+import {AudioController} from './AudioController.js';
 import { landmarks } from '../data/landmarks.js';
 
 let currentAudio = null;
@@ -12,13 +14,13 @@ function setAudioButtonState(button, state) {
   button.classList.remove('playing');
 
   if (state === 'loading') {
-    button.innerHTML = `<span class="icon">⋯</span> <span class="text">Loading Audio Guide…</span>`;
+    button.innerHTML = `<span class="icon">⋯</span> <span class="text">Loading illustrative audio</span>`;
     return;
   }
 
   if (state === 'playing') {
     button.classList.add('playing');
-    button.innerHTML = `<span class="icon">⏸</span> <span class="text">Pause Audio Guide</span>`;
+    button.innerHTML = `<span class="icon">⏸</span> <span class="text">Pause illustrative audio</span>`;
     return;
   }
 
@@ -27,7 +29,7 @@ function setAudioButtonState(button, state) {
     return;
   }
 
-  button.innerHTML = `<span class="icon">▶</span> <span class="text">Play Audio Guide</span>`;
+  button.innerHTML = `<span class="icon">▶</span> <span class="text">Play illustrative audio</span>`;
 }
 
 function stopCurrentAudioGuide() {
@@ -45,6 +47,8 @@ export function initDetailPanel() {
   const panel = document.createElement('div');
   panel.className = 'detail-panel';
   panel.id = 'detail-panel';
+  panel.inert=true;
+  panel.setAttribute('aria-hidden','true');
 
   // Static structure is safe to use innerHTML for
   panel.innerHTML = `
@@ -82,7 +86,7 @@ export function initDetailPanel() {
       </div>
 
       <div class="info-section">
-        <h3>Visitor Info</h3>
+        <h3>Visitor Info</h3><p class="source-note"><a href="https://www.visitmorocco.com/en/travel/fez" target="_blank" rel="noopener noreferrer">Official Fez visitor guide</a></p>
         <div class="visitor-info">
           <!-- Hours, etc -->
         </div>
@@ -209,14 +213,11 @@ export function openDetailPanel(data) {
     img.classList.add('loaded');
   };
 
-  img.onerror = () => {
-    // Fallback if image fails
-    img.src = 'https://via.placeholder.com/600x300?text=Image+Unavailable';
-    img.classList.add('loaded');
-  };
+  img.onerror = () => { img.onerror=null;img.remove();const note=document.createElement('p');note.className='image-unavailable';note.textContent='Photo unavailable. Explore the landmark notes below.';imgContainer.appendChild(note); };
 
-  img.src = data.image || 'https://via.placeholder.com/600x300';
-  imgContainer.appendChild(img);
+  const photo=photos[data.id];
+  if(photo){img.src=photo.image}else{img.onerror()}
+  if(photo){imgContainer.appendChild(img);const credit=document.createElement('p');credit.className='photo-credit';const link=document.createElement('a');link.href=photo.source;link.target='_blank';link.rel='noopener noreferrer';link.textContent=photo.caption||photo.description;const license=document.createElement('a');license.href=photo.licenseUrl;license.target='_blank';license.rel='noopener noreferrer';license.textContent=photo.license;credit.append(link,document.createTextNode(' · '+photo.artist+' · '),license);imgContainer.appendChild(credit)}
 
   // Facts
   const factsList = panel.querySelector('.facts-list');
@@ -251,7 +252,7 @@ export function openDetailPanel(data) {
   const hoursStrong = document.createElement('strong');
   hoursStrong.textContent = 'Hours: ';
   hoursP.appendChild(hoursStrong);
-  hoursP.appendChild(document.createTextNode(data.info.hours));
+  hoursP.appendChild(document.createTextNode('Confirm current hours and access with the venue.'));
 
   const bestTimeP = document.createElement('p');
   const bestTimeStrong = document.createElement('strong');
@@ -350,10 +351,10 @@ export function openDetailPanel(data) {
     const audioBtn = document.createElement('button');
     audioBtn.className = 'custom-audio-btn';
     setAudioButtonState(audioBtn, 'idle');
-    audioBtn.setAttribute('aria-label', `Play audio guide for ${data.title}`);
+    audioBtn.setAttribute('aria-label', `Play illustrative audio for ${data.title}`);
 
     // Create new audio object
-    const audioObj = new Audio(data.info.audioSnippet);
+    const audioObj = new AudioController();
     audioObj.preload = 'metadata';
     audioObj.crossOrigin = 'anonymous';
 
@@ -365,7 +366,7 @@ export function openDetailPanel(data) {
       if (audioObj.paused) {
         setAudioButtonState(audioBtn, 'loading');
         try {
-          await audioObj.play();
+          if(!await audioObj.play())throw new Error('Audio unavailable');
           setAudioButtonState(audioBtn, 'playing');
           currentAudio = audioObj;
           currentAudioButton = audioBtn;
@@ -398,7 +399,7 @@ export function openDetailPanel(data) {
       dispatchAudioGuideState(false);
     };
 
-    audioContainer.appendChild(audioBtn);
+    const audioNote=document.createElement('p');audioNote.className='audio-note';audioNote.textContent='Generated illustrative ambience, not narration or a recording from this landmark.';audioContainer.append(audioBtn,audioNote);
     visitorInfo.appendChild(audioContainer);
   }
 
@@ -409,7 +410,7 @@ export function openDetailPanel(data) {
     lensBtn.style.marginTop = '16px';
     lensBtn.style.width = '100%';
     lensBtn.textContent = 'Examine Details';
-    lensBtn.onclick = () => openLens(data.detailLens);
+    lensBtn.onclick = () => {if(photo)openLens(photo.image)};lensBtn.disabled=!photo;
     visitorInfo.appendChild(lensBtn);
   }
 
@@ -430,7 +431,7 @@ export function openDetailPanel(data) {
 
       const img = document.createElement('div');
       img.className = 'related-img';
-      img.style.backgroundImage = `url(${rel.image})`;
+      img.style.backgroundImage = photos[rel.id]?`url(${photos[rel.id].image})`:'none';
 
       const textDiv = document.createElement('div');
       textDiv.className = 'related-text';
@@ -472,7 +473,7 @@ export function openDetailPanel(data) {
   }, 50);
 
   // Show panel
-  panel.classList.add('visible');
+  panel.classList.add('visible');panel.inert=false;panel.setAttribute('aria-hidden','false');panel.querySelector('.close-btn').focus();
 }
 
 function openLens(imageUrl) {
@@ -559,7 +560,7 @@ function openLens(imageUrl) {
 export function closeDetailPanel() {
   const panel = document.getElementById('detail-panel');
   if (panel) {
-    panel.classList.remove('visible');
+    panel.classList.remove('visible');panel.inert=true;panel.setAttribute('aria-hidden','true');
     stopCurrentAudioGuide();
   }
 }
