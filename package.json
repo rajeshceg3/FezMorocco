@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "test": "node verification/check.cjs"
+    "test": "node verification/check.cjs && node verification/audio-structure.cjs",
+    "audio:preview": "node scripts/render-preview.mjs"
   },
   "repository": {
     "type": "git",

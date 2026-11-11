@@ -1,11 +1,47 @@
-// Imagined ambience only. No field-recording or place-specific claims.
+// Medina ambience, synthesized in the browser: fountain water, courtyard
+// wind, doves, and the coppersmiths' tapping near craft streets. No samples,
+// no voice, no song, no melody. Nothing plays until the listener opts in;
+// pausing closes the AudioContext. Ducks under the audio guide.
+import { createSoundscape } from '../sound/soundscape.mjs';
+import { SOUND_PLACES, CATEGORY_PLACES } from '../sound/places.mjs';
+
 export class AudioController {
-  constructor(){this.ctx=null;this.isPlaying=false;this.timer=null;this.targetVolume=.1;this.currentMaxVolume=.1;this.gain=null}
-  get paused(){return !this.isPlaying}
-  setTrack(){} // One honest, generated palette rather than mislabeled foreign recordings.
-  async play(){if(this.isPlaying)return true;try{const C=window.AudioContext||window.webkitAudioContext;const ctx=new C();this.ctx=ctx;await ctx.resume();const gain=ctx.createGain();gain.gain.value=this.currentMaxVolume;gain.connect(ctx.destination);this.gain=gain;const buffer=ctx.createBuffer(1,ctx.sampleRate*3,ctx.sampleRate),d=buffer.getChannelData(0);let last=0;for(let i=0;i<d.length;i++){last=(last+.025*(Math.random()*2-1))/1.025;d[i]=last*3}const source=ctx.createBufferSource();source.buffer=buffer;source.loop=true;const filter=ctx.createBiquadFilter();filter.type='lowpass';filter.frequency.value=850;source.connect(filter).connect(gain);source.start();this.isPlaying=true;const bird=()=>{if(!this.isPlaying||this.ctx!==ctx||ctx.state==='closed')return;const now=ctx.currentTime;for(let i=0;i<2;i++){const o=ctx.createOscillator(),g=ctx.createGain(),t=now+i*.22;o.type='sine';o.frequency.setValueAtTime(1450+i*160,t);o.frequency.exponentialRampToValueAtTime(2200,t+.06);o.frequency.exponentialRampToValueAtTime(1600,t+.16);g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.09,t+.03);g.gain.exponentialRampToValueAtTime(.001,t+.19);o.connect(g).connect(gain);o.start(t);o.stop(t+.2)}this.timer=setTimeout(bird,7000+Math.random()*5000)};this.timer=setTimeout(bird,2200);return true}catch(e){this.pause();document.dispatchEvent(new CustomEvent('ambient-audio-blocked'));return false}}
-  pause(){this.isPlaying=false;clearTimeout(this.timer);const ctx=this.ctx;this.ctx=null;if(ctx&&ctx.state!=='closed')ctx.close().catch(()=>{});this.gain=null}
-  toggle(v){if(v)this.play();else this.pause()}
-  duck(){this.currentMaxVolume=.035;if(this.gain&&this.ctx)this.gain.gain.setTargetAtTime(.035,this.ctx.currentTime,.3)}
-  unduck(){this.currentMaxVolume=.1;if(this.gain&&this.ctx)this.gain.gain.setTargetAtTime(.1,this.ctx.currentTime,.3)}
+  constructor() {
+    this.scape = createSoundscape(SOUND_PLACES);
+    this.state = this.scape.state;
+    this.isPlaying = false;
+    this.place = 0;
+  }
+  get paused() { return !this.isPlaying; }
+  setTrack() {} // Kept for API compatibility; ambience is one synthesized palette.
+  setCategory(category) {
+    this.place = CATEGORY_PLACES[category] ?? 0;
+    this.scape.setPlace(this.place);
+  }
+  async play() {
+    if (this.isPlaying) return true;
+    try {
+      this.scape.toggle(this.place);
+      this.isPlaying = this.scape.state.on;
+      if (this.ducked) this.duck();
+      return this.isPlaying;
+    } catch (e) {
+      this.pause();
+      document.dispatchEvent(new CustomEvent('ambient-audio-blocked'));
+      return false;
+    }
+  }
+  pause() {
+    if (this.isPlaying) this.scape.toggle(this.place);
+    this.isPlaying = false;
+  }
+  toggle(v) { if (v) this.play(); else this.pause(); }
+  duck() {
+    this.ducked = true;
+    if (this.state.gain && this.state.ctx) this.state.gain.gain.setTargetAtTime(0.25, this.state.ctx.currentTime, 0.3);
+  }
+  unduck() {
+    this.ducked = false;
+    if (this.state.gain && this.state.ctx) this.state.gain.gain.setTargetAtTime(0.9, this.state.ctx.currentTime, 0.3);
+  }
 }
