@@ -780,3 +780,5 @@ button,a{touch-action:manipulation}button{min-height:44px;font-family:var(--font
 .photo-credit{position:relative;font-size:14px;line-height:1.4;padding:8px 12px;color:var(--ink);background:var(--surface)}.photo-credit a{color:var(--ink);font-size:14px}.hero-image-container{height:auto;min-height:100px;overflow:visible}.hero-image{height:220px;width:100%;object-fit:cover;border-radius:12px}.image-unavailable{padding:24px}.landing-description,.guide-caveat{font-family:var(--font-sans)}
 
 .source-note a{color:var(--ink);font-size:14px}.source-note{margin-bottom:12px}
+/* Keep focus-driven mobile body scrolling from shifting the full-screen map. */
+#app{position:fixed;inset:0;height:100dvh;overflow:hidden}.detail-panel:not(.visible){visibility:hidden;pointer-events:none}.detail-panel.visible{visibility:visible}
