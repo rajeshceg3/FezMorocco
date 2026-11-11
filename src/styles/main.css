@@ -782,3 +782,5 @@ button,a{touch-action:manipulation}button{min-height:44px;font-family:var(--font
 .source-note a{color:var(--ink);font-size:14px}.source-note{margin-bottom:12px}
 /* Keep focus-driven mobile body scrolling from shifting the full-screen map. */
 #app{position:fixed;inset:0;height:100dvh;overflow:hidden}.detail-panel:not(.visible){visibility:hidden;pointer-events:none}.detail-panel.visible{visibility:visible}
+
+#app{overflow:clip}

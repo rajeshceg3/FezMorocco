@@ -473,7 +473,7 @@ export function openDetailPanel(data) {
   }, 50);
 
   // Show panel
-  panel.classList.add('visible');panel.inert=false;panel.setAttribute('aria-hidden','false');panel.querySelector('.close-btn').focus();
+  panel.classList.add('visible');panel.inert=false;panel.setAttribute('aria-hidden','false');panel.querySelector('.close-btn').focus({preventScroll:true});
 }
 
 function openLens(imageUrl) {
