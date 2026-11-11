@@ -1,0 +1,21 @@
+{
+  "silentStart": true,
+  "offAndReplay": true,
+  "places": [
+    {
+      "place": "medina",
+      "bytes": 64052
+    },
+    {
+      "place": "Craft",
+      "bytes": 64052
+    },
+    {
+      "place": "Sacred",
+      "bytes": 64052
+    }
+  ],
+  "capture": "actual post-gain Web Audio output; synthesized medina ambience",
+  "humanListening": false,
+  "sound": "synthesized fountain water, courtyard wind, doves, coppersmith taps; no voice, no melody, not a field recording"
+}
