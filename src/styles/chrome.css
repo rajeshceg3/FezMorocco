@@ -2,8 +2,7 @@
 .chrome{transition:opacity .25s ease,visibility 0s linear .25s}
 .chrome.chrome-on{opacity:1;visibility:visible;transition:opacity .2s ease}
 .chrome:not(.chrome-on){opacity:0;visibility:hidden;pointer-events:none}
-.chrome-hint{position:fixed;top:0;right:22px;z-index:1100;min-width:46px;min-height:52px;padding:2px 8px 4px;background:var(--color-base);color:var(--color-accent);border:2px solid var(--color-highlight);border-top:none;border-radius:0 0 16px 14px/0 0 20px 16px;box-shadow:3px 4px 0 rgba(31,58,95,.25);cursor:pointer;animation:tag-sway 5.5s ease-in-out infinite;transform-origin:top center}
-.chrome-hint:hover,.chrome-hint:focus-visible{animation-play-state:paused}
+.chrome-hint{position:fixed;top:0;right:22px;z-index:1100;min-width:46px;min-height:52px;padding:2px 8px 4px;background:var(--color-base);color:var(--color-accent);border:2px solid var(--color-highlight);border-top:none;border-radius:0 0 16px 14px/0 0 20px 16px;box-shadow:3px 4px 0 rgba(31,58,95,.25);cursor:pointer}
 .chrome-hint svg{display:block;width:24px;height:38px;margin:0 auto}
 @keyframes tag-sway{0%,100%{transform:rotate(-2.2deg)}50%{transform:rotate(2.4deg)}}
 /* dock: horseshoe-arch tiles on a carved shelf */
