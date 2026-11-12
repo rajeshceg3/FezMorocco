@@ -5,6 +5,7 @@ import warmMapStyle from '../vendor/warm-map/style.json';
 import { landmarks } from '../data/landmarks.js';
 import { guidedRoute } from '../data/route.js';
 import { openDetailPanel } from './DetailPanel.js';
+import { LandmarkGlyph } from './Icons.js';
 import { ROUTE_HIGHLIGHT_COLOR } from '../constants.js';
 
 // Fix for Leaflet default icon not showing in Vite
@@ -184,11 +185,12 @@ export function initMap() {
   });
 
   const tools=document.createElement('div');tools.className='map-tools';
-  const label=document.createElement('label');label.htmlFor='place-picker';label.textContent='Find a place';
-  const picker=document.createElement('select');picker.id='place-picker';picker.innerHTML='<option value="">Choose a landmark</option>';
-  landmarks.forEach(l=>{const option=document.createElement('option');option.value=l.id;option.textContent=l.title;picker.appendChild(option)});
-  picker.onchange=()=>{const l=landmarks.find(l=>String(l.id)===picker.value);if(l){document.dispatchEvent(new CustomEvent('open-landmark',{detail:{landmark:l}}));openDetailPanel(l)}};
-  const reset=document.createElement('button');reset.id='reset-map';reset.textContent='Reset map';reset.onclick=()=>map.setView([34.062,-4.975],15,{animate:false});tools.append(label,picker,reset);document.getElementById('app').appendChild(tools);
+  const reset=document.createElement('button');reset.id='reset-map';reset.textContent='Reset map';reset.onclick=()=>map.setView([34.062,-4.975],15,{animate:false});tools.append(reset);document.getElementById('app').appendChild(tools);
+  // Landmark alley: every place visible at a glance, one tap to visit.
+  const trail=document.createElement('nav');trail.className='landmark-trail';trail.setAttribute('role','radiogroup');trail.setAttribute('aria-label','Choose a landmark');
+  const openById=(id)=>{const l=landmarks.find(l=>String(l.id)===String(id));if(l){document.dispatchEvent(new CustomEvent('open-landmark',{detail:{landmark:l}}));openDetailPanel(l);trail.querySelectorAll('[data-lm]').forEach(b=>{b.setAttribute('aria-checked',String(b.dataset.lm===String(l.id)));b.tabIndex=b.dataset.lm===String(l.id)?0:-1})}};
+  landmarks.forEach(l=>{const b=document.createElement('button');b.type='button';b.className='trail-token arch-token';b.dataset.lm=l.id;b.setAttribute('role','radio');b.setAttribute('aria-checked','false');b.setAttribute('aria-label',l.title);b.title=l.title;b.tabIndex=-1;b.innerHTML=LandmarkGlyph({id:l.id});b.addEventListener('click',()=>openById(l.id));b.addEventListener('keydown',(e)=>{if(e.key!=='ArrowRight'&&e.key!=='ArrowLeft')return;e.preventDefault();const ids=landmarks.map(x=>x.id);const i=ids.indexOf(l.id);openById(ids[(i+(e.key==='ArrowRight'?1:ids.length-1))%ids.length])});trail.appendChild(b)});
+  document.getElementById('app').appendChild(trail);
   // Expose map globally for debugging/testing
   window.map = map;
 }
