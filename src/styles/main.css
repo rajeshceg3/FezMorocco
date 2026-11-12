@@ -785,3 +785,19 @@ button,a{touch-action:manipulation}button{min-height:44px;font-family:var(--font
 
 #app{overflow:clip}
 @media(min-width:900px){.detail-panel{left:auto;right:20px;bottom:20px;width:560px;height:calc(100dvh - 40px);border-radius:20px}.detail-panel:not(.visible){transform:translateX(calc(100% + 24px))}.detail-panel.visible{transform:translateX(0)}.hero-image{height:270px}}
+
+/* Landmark alley: hand-inked arch tokens on a dotted medina path */
+.landmark-trail { position:fixed; top:66px; left:50%; transform:translateX(-50%); z-index:1050; display:flex; gap:8px; padding:8px 12px; overflow-x:auto; max-width:min(92vw,660px); background:var(--paper); border:2px solid var(--ink); border-radius:14px 18px 15px 20px / 18px 14px 20px 15px; box-shadow:3px 4px 0 var(--ink-soft); scrollbar-width:none; }
+.landmark-trail::-webkit-scrollbar { display:none; }
+.landmark-trail::before { content:''; position:absolute; left:14px; right:14px; top:50%; border-top:2px dashed var(--ink-soft); pointer-events:none; }
+.trail-token { position:relative; z-index:1; flex:0 0 auto; width:44px; height:52px; padding:6px; background:var(--paper-deep,#f3e6cf); border:2px solid var(--ink); border-radius:14px 14px 8px 8px / 18px 18px 8px 8px; color:var(--ink); cursor:pointer; display:grid; place-items:center; transition:transform .18s cubic-bezier(0.23,1,0.32,1), background-color .18s ease; }
+.trail-token .ink-icon { width:24px; height:24px; }
+.trail-token:hover { transform:translateY(-2px); }
+.trail-token:active { transform:scale(0.97); }
+.trail-token[aria-checked="true"] { background:var(--ink); color:var(--paper); transform:translateY(-3px) rotate(-1.5deg); }
+.trail-token:focus-visible { outline:3px solid var(--ink-soft); outline-offset:2px; }
+@media (max-width:700px) { .landmark-trail { top:60px; left:10px; right:10px; transform:none; max-width:none; } }
+@media (prefers-reduced-motion: reduce) { .trail-token { transition:none; } }
+body.night-mode .landmark-trail { background:#241a10; border-color:#c9b58f; color:#e8dcc4; }
+body.night-mode .trail-token { background:#2e2115; border-color:#c9b58f; color:#e8dcc4; }
+body.night-mode .trail-token[aria-checked="true"] { background:#c9b58f; color:#241a10; }

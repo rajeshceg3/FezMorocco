@@ -5,7 +5,7 @@ const PIN_KEY = 'fez-chrome-pin';
 const RETIRE_MS = 2600;
 const TOP_ZONE = 96;
 const BOTTOM_ZONE = 150;
-const CHROME_SEL = '.bottom-dock,.category-filter,.map-tools';
+const CHROME_SEL = '.bottom-dock,.category-filter,.map-tools,.landmark-trail';
 
 export function initChrome() {
   let pinned = false;
