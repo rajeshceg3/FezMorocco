@@ -1,0 +1,34 @@
+/* --- hand-drawn chrome for Fez: Fassi-blue arch tiles, leather tags, brass plaque --- */
+.chrome{transition:opacity .25s ease,visibility 0s linear .25s}
+.chrome.chrome-on{opacity:1;visibility:visible;transition:opacity .2s ease}
+.chrome:not(.chrome-on){opacity:0;visibility:hidden;pointer-events:none}
+.chrome-hint{position:fixed;top:0;right:22px;z-index:1100;min-width:46px;min-height:52px;padding:2px 8px 4px;background:var(--color-base);color:var(--color-accent);border:2px solid var(--color-highlight);border-top:none;border-radius:0 0 16px 14px/0 0 20px 16px;box-shadow:3px 4px 0 rgba(31,58,95,.25);cursor:pointer;animation:tag-sway 5.5s ease-in-out infinite;transform-origin:top center}
+.chrome-hint:hover,.chrome-hint:focus-visible{animation-play-state:paused}
+.chrome-hint svg{display:block;width:24px;height:38px;margin:0 auto}
+@keyframes tag-sway{0%,100%{transform:rotate(-2.2deg)}50%{transform:rotate(2.4deg)}}
+/* dock: horseshoe-arch tiles on a carved shelf */
+.bottom-dock{border:2px solid var(--color-highlight)!important;border-radius:22px 24px 20px 23px/24px 21px 23px 22px!important;box-shadow:4px 5px 0 rgba(31,58,95,.18)!important;backdrop-filter:none}
+.dock-btn{border:2px solid transparent;border-radius:14px 15px 8px 9px/20px 19px 9px 8px;padding:6px 8px;min-width:48px;min-height:48px;transition:transform .15s cubic-bezier(.23,1,.32,1),box-shadow .15s ease,background .15s ease,border-color .15s ease,opacity .2s ease}
+.dock-btn:hover{transform:translateY(-1px)}
+.dock-btn:active{transform:translate(1px,2px)}
+.dock-btn.active{border-color:var(--color-highlight);background:rgba(176,141,87,.14);opacity:1;box-shadow:2px 3px 0 rgba(31,58,95,.16)}
+.dock-btn svg{width:22px;height:22px}
+.dock-btn .dock-label{font-size:11px;letter-spacing:.02em}
+/* category filter: leather craft tags */
+.category-filter{border:2px solid var(--color-highlight);border-radius:16px 18px 15px 19px/18px 15px 19px 16px;box-shadow:3px 4px 0 rgba(31,58,95,.16)}
+.cat-btn{position:relative;border:2px solid transparent;border-radius:11px 13px 10px 14px/13px 11px 14px 11px;min-height:36px;padding:6px 14px 6px 22px;transition:transform .15s cubic-bezier(.23,1,.32,1),background .15s ease,border-color .15s ease}
+.cat-btn::before{content:"";position:absolute;left:8px;top:50%;width:6px;height:6px;margin-top:-3px;border:1.6px solid currentColor;border-radius:50%;opacity:.7}
+.cat-btn:hover{transform:translateY(-1px)}
+.cat-btn:active{transform:translate(1px,1px)}
+.cat-btn.active{background:var(--color-accent);border-color:var(--color-accent);color:var(--color-base)}
+body.night-mode .cat-btn.active{background:var(--color-highlight);border-color:var(--color-highlight);color:var(--night-bg)}
+/* place picker: engraved brass plaque */
+.map-tools{position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:1000;display:flex;align-items:center;gap:10px;background:var(--color-base);border:2px solid var(--color-highlight);border-radius:13px 16px 12px 17px/16px 13px 17px 12px;padding:8px 14px;box-shadow:3px 4px 0 rgba(31,58,95,.18)}
+.map-tools label{font-size:14px;font-style:italic;letter-spacing:.02em}
+.map-tools select{font:inherit;font-size:15px;min-height:40px;border:2px solid var(--color-accent);border-radius:10px 12px 9px 13px/12px 10px 13px 10px;background:transparent;color:var(--color-accent);padding:6px 10px;max-width:220px}
+.map-tools button{font:inherit;font-size:14px;min-height:40px;border:2px solid var(--color-accent);border-radius:11px 13px 10px 12px/12px 10px 13px 11px;background:transparent;color:var(--color-accent);padding:6px 12px;cursor:pointer;box-shadow:2px 3px 0 rgba(31,58,95,.16);transition:transform .15s cubic-bezier(.23,1,.32,1),box-shadow .15s ease}
+.map-tools button:active{transform:translate(1px,2px);box-shadow:1px 1px 0 rgba(31,58,95,.16)}
+body.night-mode .map-tools{background:var(--night-dock-bg);border-color:var(--night-border)}
+body.night-mode .map-tools select,body.night-mode .map-tools button{color:var(--night-text);border-color:var(--night-text)}
+@media(max-width:700px){.map-tools{left:10px;right:10px;transform:none;flex-wrap:wrap;justify-content:center}.map-tools label{display:none}.chrome-hint{right:14px}}
+@media(prefers-reduced-motion:reduce){.chrome-hint{animation:none}.chrome,.chrome.chrome-on{transition:none}.dock-btn,.cat-btn,.map-tools button{transition:none}}

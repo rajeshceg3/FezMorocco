@@ -1,8 +1,10 @@
 import './styles/main.css';
+import './styles/chrome.css';
 import { initMap } from './components/Map.js';
 import { initDetailPanel } from './components/DetailPanel.js';
 import { initNavigation } from './components/Navigation.js';
 import { initLanding } from './components/Landing.js';
+import { initChrome } from './components/Chrome.js';
 import { AudioController } from './components/AudioController.js';
 
 const ambientAudio = new AudioController();
@@ -13,6 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initDetailPanel();
   initNavigation();
   initLanding();
+initChrome();
 
   // Listen for Ambient Audio toggle
   document.addEventListener('toggle-audio', (e) => {
