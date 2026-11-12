@@ -1,4 +1,7 @@
 import L from 'leaflet';
+import { maplibreGL } from '@maplibre/maplibre-gl-leaflet';
+import 'maplibre-gl/dist/maplibre-gl.css';
+import warmMapStyle from '../vendor/warm-map/style.json';
 import { landmarks } from '../data/landmarks.js';
 import { guidedRoute } from '../data/route.js';
 import { openDetailPanel } from './DetailPanel.js';
@@ -55,11 +58,12 @@ export function initMap() {
     attributionControl: true
   });
 
-  // Clean, minimalist CartoDB Positron Tile Layer
-  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 19,
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>'
-  }).addTo(map);
+  // Warm paper basemap (worlds shared module): OpenFreeMap vector tiles,
+  // custom watercolor-wash style. Free public instance, no API key.
+  maplibreGL({ style: warmMapStyle }).addTo(map);
+  map.attributionControl.addAttribution(
+    '<a href="https://openfreemap.org" target="_blank">OpenFreeMap</a> <a href="https://www.openmaptiles.org/" target="_blank">&copy; OpenMapTiles</a> Data from <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>'
+  );
 
   map.attributionControl.setPosition('topright');
   L.control.zoom({position: 'topleft'}).addTo(map);
