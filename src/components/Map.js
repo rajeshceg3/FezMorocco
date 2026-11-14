@@ -1,4 +1,7 @@
 import L from 'leaflet';
+import { setWorkerUrl } from 'maplibre-gl';
+import mapWorkerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?url';
+setWorkerUrl(mapWorkerUrl);
 import { maplibreGL } from '@maplibre/maplibre-gl-leaflet';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import warmMapStyle from '../vendor/warm-map/style.json';
@@ -66,7 +69,7 @@ export function initMap() {
     '<a href="https://openfreemap.org" target="_blank">OpenFreeMap</a> <a href="https://www.openmaptiles.org/" target="_blank">&copy; OpenMapTiles</a> Data from <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>'
   );
 
-  map.attributionControl.setPosition('topright');
+  map.attributionControl.setPosition('bottomleft');
   L.control.zoom({position: 'topleft'}).addTo(map);
 
   // Initialize Marker Layer Group
@@ -186,8 +189,8 @@ export function initMap() {
 
   // Landmark alley: every place visible at a glance, one tap to visit.
   const trail=document.createElement('nav');trail.className='landmark-trail';trail.setAttribute('role','radiogroup');trail.setAttribute('aria-label','Choose a landmark');const tokens=document.createElement('div');tokens.className='trail-tokens';trail.appendChild(tokens);
-  const openById=(id)=>{const l=landmarks.find(l=>String(l.id)===String(id));if(l){document.dispatchEvent(new CustomEvent('open-landmark',{detail:{landmark:l}}));openDetailPanel(l);trail.querySelectorAll('[data-lm]').forEach(b=>{b.setAttribute('aria-checked',String(b.dataset.lm===String(l.id)));b.tabIndex=b.dataset.lm===String(l.id)?0:-1})}};
-  landmarks.forEach(l=>{const b=document.createElement('button');b.type='button';b.className='trail-token arch-token';b.dataset.lm=l.id;b.setAttribute('role','radio');b.setAttribute('aria-checked','false');b.setAttribute('aria-label',l.title);b.title=l.title;b.tabIndex=-1;b.innerHTML=LandmarkGlyph({id:l.id});b.addEventListener('click',()=>openById(l.id));b.addEventListener('keydown',(e)=>{if(e.key!=='ArrowRight'&&e.key!=='ArrowLeft')return;e.preventDefault();const ids=landmarks.map(x=>x.id);const i=ids.indexOf(l.id);openById(ids[(i+(e.key==='ArrowRight'?1:ids.length-1))%ids.length])});tokens.appendChild(b)});
+  const openById=(id)=>{const l=landmarks.find(l=>String(l.id)===String(id));if(l){document.dispatchEvent(new CustomEvent('open-landmark',{detail:{landmark:l}}));openDetailPanel(l);trail.querySelectorAll('[data-lm]').forEach(b=>{b.setAttribute('aria-checked',String(b.dataset.lm===String(l.id)));b.tabIndex=0})}};
+  landmarks.forEach(l=>{const b=document.createElement('button');b.type='button';b.className='trail-token arch-token';b.dataset.lm=l.id;b.setAttribute('role','radio');b.setAttribute('aria-checked','false');b.setAttribute('aria-label',l.title);b.title=l.title;b.tabIndex=0;b.innerHTML=LandmarkGlyph({id:l.id});const label=document.createElement('span');label.textContent=l.title;b.appendChild(label);b.addEventListener('click',()=>openById(l.id));b.addEventListener('keydown',(e)=>{if(e.key!=='ArrowRight'&&e.key!=='ArrowLeft')return;e.preventDefault();const ids=landmarks.map(x=>x.id);const i=ids.indexOf(l.id);openById(ids[(i+(e.key==='ArrowRight'?1:ids.length-1))%ids.length])});tokens.appendChild(b)});
   const reset=document.createElement('button');reset.id='reset-map';reset.className='trail-reset';reset.textContent='Reset map';reset.onclick=()=>map.setView([34.062,-4.975],15,{animate:false});trail.appendChild(reset);
   document.getElementById('app').appendChild(trail);
   // Expose map globally for debugging/testing

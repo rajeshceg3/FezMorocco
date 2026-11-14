@@ -4,3 +4,9 @@ dist
 .env
 
 verification/pixels/
+verification/fixed-reduce/
+verification/lens/
+verification/normal/
+verification/reduce1440/
+verification/final-reduce/
+verification/final-normal/
