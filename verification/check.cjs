@@ -21,6 +21,7 @@ try{
   if(night){await open();await p.click('[data-id=night]');await p.click('.tools-close');}
   for(const o of options){
    await open();await p.click(`[data-lm="${o.id}"]`);await p.waitForSelector('.detail-panel.visible');assert.equal(await p.$eval('#medina-tools',e=>e.hidden),true);
+   if(width<900)assert(await p.$eval('.leaflet-control-attribution',e=>e.getBoundingClientRect().bottom<100),'credits above story');
    assert.equal(await p.$eval('.panel-title',e=>e.textContent),o.title);await fit('.detail-panel');
    assert.equal(await p.$eval('#map',e=>e.inert),true);assert.equal(await p.$eval('.chrome-hint',e=>e.inert),true);
    await p.waitForFunction(()=>{const im=document.querySelector('.hero-image');return !im||im.complete},{timeout:15000}).catch(()=>{});

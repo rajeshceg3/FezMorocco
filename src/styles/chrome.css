@@ -44,3 +44,6 @@ body.night-mode .map-tools select,body.night-mode .map-tools button{color:var(--
 @media(min-width:900px){.detail-panel{height:calc(100dvh - 40px)}}
 .chrome-hint[hidden]{display:none}.medina-heading{position:sticky;top:-18px;background:var(--surface);padding:10px 0;z-index:3}.medina-tools .leaflet-control-zoom{margin-bottom:0}
 .medina-tools{display:flex;flex-direction:column;overflow:hidden}.medina-heading{position:static;flex:0 0 auto;padding:0}.medina-body{min-height:0;overflow-y:auto;overscroll-behavior:contain;padding:3px}.medina-tools[hidden]{display:none}
+/* Keep provider credits visible even while tools or a landmark occupy the map. */
+.medina-tools{max-height:calc(100dvh - 64px)}
+#app:has(.detail-panel.visible) .leaflet-control-attribution{position:fixed;top:6px;right:6px;bottom:auto;left:auto;max-width:230px!important;margin:0!important;z-index:1250}
