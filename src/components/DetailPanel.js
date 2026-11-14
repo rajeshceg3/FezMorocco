@@ -47,6 +47,7 @@ export function initDetailPanel() {
   const panel = document.createElement('div');
   panel.className = 'detail-panel';
   panel.id = 'detail-panel';
+  panel.setAttribute('role','dialog');panel.setAttribute('aria-modal','true');panel.setAttribute('aria-labelledby','landmark-title');
   panel.inert=true;
   panel.setAttribute('aria-hidden','true');
 
@@ -54,7 +55,7 @@ export function initDetailPanel() {
   panel.innerHTML = `
     <div class="panel-header">
       <div class="title-container">
-        <h2 class="panel-title">Landmark Name</h2>
+        <h2 class="panel-title" id="landmark-title">Landmark Name</h2>
         <span class="atmosphere-tag" style="display: none;"></span>
       </div>
       <div class="header-actions">
@@ -124,6 +125,10 @@ export function initDetailPanel() {
 
   document.getElementById('app').appendChild(panel);
 
+  panel.addEventListener('keydown',e=>{
+    if(e.key==='Escape'){e.preventDefault();closeDetailPanel()}
+    if(e.key==='Tab'){const els=[...panel.querySelectorAll('button,a[href]')].filter(el=>!el.disabled&&el.getClientRects().length);const first=els[0],last=els.at(-1);if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}}
+  });
   // Close button logic
   const closeBtn = panel.querySelector('.close-btn');
   closeBtn.addEventListener('click', () => {
@@ -139,6 +144,7 @@ export function openDetailPanel(data) {
   stopCurrentAudioGuide();
 
   const content = panel.querySelector('.panel-content');
+  panel.scrollTop=0;
   // Ensure fading class is active initially if it's a re-render from related click
   // so we can fade it IN after the DOM is updated.
   if (!content.classList.contains('fading') && panel.classList.contains('visible')) {
@@ -452,12 +458,12 @@ export function openDetailPanel(data) {
         const content = panel.querySelector('.panel-content');
         content.classList.add('fading');
 
-        setTimeout(() => {
+        (() => {
           document.dispatchEvent(new CustomEvent('open-landmark', { detail: { landmark: rel } }));
           openDetailPanel(rel);
           // Scroll back to top smoothly
-          panel.scrollTo({ top: 0, behavior: 'smooth' });
-        }, 300); // Wait for fade out to complete (matches transition time)
+          panel.scrollTo({ top: 0, behavior: 'instant' });
+        })();
       };
 
       relatedList.appendChild(card);
@@ -468,16 +474,18 @@ export function openDetailPanel(data) {
   }
 
   // Fade in content
-  setTimeout(() => {
-    content.classList.remove('fading');
-  }, 50);
+  content.classList.remove('fading');
 
   // Show panel
+  document.getElementById('map').inert=true;
+  document.querySelector('.chrome-hint').inert=true;document.querySelector('.chrome-hint').hidden=true;
   panel.classList.add('visible');panel.inert=false;panel.setAttribute('aria-hidden','false');panel.querySelector('.close-btn').focus({preventScroll:true});
 }
 
 function openLens(imageUrl) {
+  const opener=document.activeElement;const detail=document.getElementById('detail-panel');detail.inert=true;
   const overlay = document.createElement('div');
+  overlay.setAttribute('role','dialog');overlay.setAttribute('aria-modal','true');overlay.setAttribute('aria-label','Landmark photo');
   overlay.className = 'lens-overlay';
   overlay.style.position = 'fixed';
   overlay.style.top = '0';
@@ -494,7 +502,7 @@ function openLens(imageUrl) {
 
   // Close button for better UX
   const closeBtn = document.createElement('button');
-  closeBtn.innerHTML = '×';
+  closeBtn.innerHTML = '×';closeBtn.setAttribute('aria-label','Close landmark photo');closeBtn.style.minWidth='44px';closeBtn.style.minHeight='44px';
   closeBtn.className = 'lens-close-btn';
   closeBtn.style.position = 'absolute';
   closeBtn.style.top = '24px';
@@ -531,6 +539,7 @@ function openLens(imageUrl) {
   };
 
   const closeLens = () => {
+    detail.inert=false;opener?.focus({preventScroll:true});
     overlay.style.opacity = '0';
     setTimeout(() => {
       if (document.body.contains(overlay)) {
@@ -550,7 +559,8 @@ function openLens(imageUrl) {
 
   overlay.appendChild(closeBtn);
   overlay.appendChild(img);
-  document.body.appendChild(overlay);
+  document.body.appendChild(overlay);closeBtn.focus({preventScroll:true});
+  overlay.addEventListener('keydown',e=>{if(e.key==='Escape'){e.preventDefault();closeLens()}if(e.key==='Tab'){e.preventDefault();closeBtn.focus()}});
 
   // Trigger reflow for fade-in
   void overlay.offsetWidth;
@@ -562,5 +572,8 @@ export function closeDetailPanel() {
   if (panel) {
     panel.classList.remove('visible');panel.inert=true;panel.setAttribute('aria-hidden','true');
     stopCurrentAudioGuide();
+    document.getElementById('map').inert=false;
+    document.querySelector('.chrome-hint').inert=false;document.querySelector('.chrome-hint').hidden=false;
+    document.dispatchEvent(new CustomEvent('close-landmark'));
   }
 }

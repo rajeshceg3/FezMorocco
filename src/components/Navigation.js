@@ -22,11 +22,13 @@ export function initNavigation() {
     btn.className = 'cat-btn';
     if (cat.id === 'all') btn.classList.add('active');
     btn.textContent = cat.label;
+    btn.setAttribute('aria-pressed', String(cat.id === 'all'));
     btn.dataset.category = cat.id;
 
     btn.addEventListener('click', () => {
       // Set active state for category buttons
-      categoryFilter.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+      categoryFilter.querySelectorAll('.cat-btn').forEach(b => {b.classList.remove('active');b.setAttribute('aria-pressed','false')});
+      btn.setAttribute('aria-pressed','true');
       btn.classList.add('active');
 
       // Dispatch event
@@ -46,7 +48,7 @@ export function initNavigation() {
   dock.className = 'bottom-dock';
 
   const dockItems = [
-    { id: 'explore', icon: ExploreIcon, label: 'Explore' },
+
     { id: 'route', icon: RouteIcon, label: 'Route' },
     { id: 'saved', icon: SavedIcon, label: 'Saved' },
     { id: 'audio', icon: AudioIcon, label: 'Sound' },
